@@ -61,6 +61,16 @@ sub number_ranger {
 
 =head2 personify()
 
+  @results = personify($gender, $names, $country, $n)
+
+Return a list of B<$n> random names.  The gender, number of names and desired
+number of data-points arguments are all optional.  The defaults are:
+
+  gender: both
+  names: 2
+  country: us
+  n: 10
+
 =cut
 
 sub personify {
@@ -68,10 +78,12 @@ sub personify {
     # Bucket for our result list.
     my @results;
 
-    # Get gender.
-    my $g = defined $_[0] ? shift : die "Usage: perl $0 b|f|m [names] [num]\n";
+    # Get gender. f: female, m: male, b: both
+    my $g = defined $_[0] ? shift : 'b';
     # Get desired number of names.
     my $d = defined $_[0] ? shift : 2;
+    # Get the country to use.
+    my $c = defined $_[0] ? shift : 'us';
     # Get desired number of data-points.
     my $n = defined $_[0] ? shift : 9;
 
@@ -80,10 +92,10 @@ sub personify {
         # Get our random person.
         my $p = '';
         if (($g eq 'b' && $i % 2) || $g eq 'f') {
-            $p = Mock::Person::name(sex => 'female', country => 'us');
+            $p = Mock::Person::name(sex => 'female', country => $c);
         }
         else {
-            $p = Mock::Person::name(sex => 'male', country => 'us');
+            $p = Mock::Person::name(sex => 'male', country => $c);
         }
         # Only use the requested number of names.
         my @names = split / /, $p;
@@ -108,6 +120,12 @@ sub personify {
 
 Return a list of B<$n> distribution values.  The type, precision,
 degrees-of-freedom and desired number of data-points arguments are optional.
+The defaults are:
+
+  type: u (normal)
+  precision: 2
+  degrees-of-freedom: 2
+  n: 10
 
 =head3 TYPES
 
@@ -124,7 +142,7 @@ Given the type, this function accepts the following:
 
   c: A single integer
   s: A single integer
-  f: A fraction string of the form 'N/D'
+  f: A fraction string of the form 'N/D' (default 2/1)
 
 =cut
 
