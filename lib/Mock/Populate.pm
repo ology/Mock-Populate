@@ -49,6 +49,18 @@ sub date_ranger {
 
 =head2 number_ranger()
 
+  @results = number_ranger($start, $end, $prec, $random, $n)
+
+Return a list of B<$n> random numbers within a range.  The start, end,
+precision, whether we want random or sequential numbers and desired number of
+data-points arguments are all optional.  The defaults are:
+
+  start: 0
+  end: 9
+  precision: 2
+  random: 0
+  n: 10
+
 =cut
 
 sub number_ranger {
