@@ -9,8 +9,9 @@ use warnings;
 
 use Data::SimplePassword;
 use Date::Range;
+use lib '/Users/gene/sandbox/github/ology/Mock-Person/lib';
 use Mock::Person;
-use Statistics::Distribution;
+use Statistics::Distributions;
 use List::Util qw(shuffle);
 
 =head1 NAME
@@ -39,6 +40,11 @@ See the documentation (and source) of each script for arguments and usage.
 =cut
 
 sub date_ranger {
+
+    # Bucket for our result list.
+    my @results;
+
+    return @results;
 }
 
 =head2 number_ranger()
@@ -46,6 +52,11 @@ sub date_ranger {
 =cut
 
 sub number_ranger {
+
+    # Bucket for our result list.
+    my @results;
+
+    return @results;
 }
 
 =head2 personify()
@@ -53,13 +64,72 @@ sub number_ranger {
 =cut
 
 sub personify {
+
+    # Bucket for our result list.
+    my @results;
+
+    return @results;
 }
 
 =head2 stats_distrib()
 
+=head3 TYPES
+
+  u: Normal distribution (default)
+  c: Chi-squared distribution
+  s: Student's T distribution
+  f: F distribution
+
+=head3 DEGREES OF FREEDOM
+
+  c: A single integer
+  s: A single integer
+  f: A fraction string of the form 'N/D'
+
 =cut
 
 sub stats_distrib {
+
+    # Get type of distribution.
+    my $p = defined $_[0] ? shift : 'u';
+    # Get digits of precision.
+    my $t = defined $_[0] ? shift : 2;
+    # Get desired degrees of freedom for the ChiSq, StudentT & F.
+    my $d = defined $_[0] ? shift : 2;
+    # Get desired number of data-points.
+    my $n = defined $_[0] ? shift : 9;
+
+    # Separate numerator/denominator for F degs-of-freedm.
+    my $e = 1;
+    ($d, $e) = split(/\//, $d) if $t eq 'f';
+
+    # Bucket for our result list.
+    my @results;
+
+    # Roll!
+    for(0 .. $n) {
+        my $x = 0;
+        # Select distribution.
+        if ($t eq 'c') {
+            # Chi-squared
+            $x = Statistics::Distributions::chisqrdistr($d, rand);
+        }
+        elsif ($t eq 's') {
+            # Student's T
+            $x = Statistics::Distributions::tdistr($d, rand);
+        }
+        elsif ($t eq 'f') {
+            # F distribution
+            $x = Statistics::Distributions::fdistr($d, $e, rand);
+        }
+        else {
+            # Normal
+            $x = Statistics::Distributions::udistr(rand);
+        }
+        printf "%.*f\n", $p, $x;
+    }
+
+    return @results;
 }
 
 =head2 collate()
