@@ -68,6 +68,37 @@ sub personify {
     # Bucket for our result list.
     my @results;
 
+    # Get gender.
+    my $g = defined $_[0] ? shift : die "Usage: perl $0 b|f|m [names] [num]\n";
+    # Get desired number of names.
+    my $d = defined $_[0] ? shift : 2;
+    # Get desired number of data-points.
+    my $n = defined $_[0] ? shift : 9;
+
+    # Roll!
+    for my $i (0 .. $n) {
+        # Get our random person.
+        my $p = '';
+        if (($g eq 'b' && $i % 2) || $g eq 'f') {
+            $p = Mock::Person::name(sex => 'female', country => 'us');
+        }
+        else {
+            $p = Mock::Person::name(sex => 'male', country => 'us');
+        }
+        # Only use the requested number of names.
+        my @names = split / /, $p;
+        my $name = '';
+        if ($d == 1) {
+            push @results, $names[-1];
+        }
+        elsif ($d == 2) {
+            push @results, "@names[0,-1]";
+        }
+        else {
+            push @results, $p;
+        }
+    }
+
     return @results;
 }
 
