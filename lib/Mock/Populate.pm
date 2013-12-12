@@ -9,6 +9,7 @@ use warnings;
 
 use Data::SimplePassword;
 use Date::Range;
+use Date::Simple qw(date today);
 use lib '/Users/gene/sandbox/github/ology/Mock-Person/lib';
 use Mock::Person;
 use Statistics::Distributions;
