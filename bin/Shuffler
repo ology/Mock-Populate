@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use List::Util qw(shuffle);
+die "Usage: perl $0 A B C ...\n" unless @ARGV;
+my @things = @ARGV;
+print join("\n", shuffle(@things)), "\n";

@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Date::Range;
+use Date::Simple qw(date today);
+
+# Get start and end dates.
+my $d1 = shift || die "Usage: perl $0 yyyy-mm-dd [yyyy-mm-dd]\n";
+my $d2 = shift || today();
+my $n  = shift || 9;
+#warn "D1: $d1\n"; warn "D2: $d2\n";
+
+# Convert the dates into a range.
+my $date1 = date($d1);
+my $date2 = date($d2);
+my $range = Date::Range->new($date1, $date2);
+
+# Declare the number of days in the range.
+my $offset = 0;
+
+for(0 .. $n) {
+    # Get a random number of days in the range.
+    $offset = int(rand $range->length);
+
+    # Print the start date plus the offest.
+    print $date1 + $offset;
+}
+
