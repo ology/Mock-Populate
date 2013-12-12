@@ -37,12 +37,44 @@ See the documentation (and source) of each script for arguments and usage.
 
 =head2 date_ranger()
 
+    @results = date_ranger($start, $end, $n);
+
+Return a list of B<$n> random dates within a range.  The start and end dates and
+desired number of data-points arguments are all optional.  The defaults are:
+
+  start: 2000-01-01
+  end: today
+  n: 10
+
+The dates must be given as B<YYYY-MM-DD> strings.
+
 =cut
 
 sub date_ranger {
 
+    # Get start and end dates.
+    my $d1 = shift || '2000-01-01';
+    my $d2 = shift || today();
+    my $n  = shift || 9;
+
+    # Convert the dates into a range.
+    my $date1 = date($d1);
+    my $date2 = date($d2);
+    my $range = Date::Range->new($date1, $date2);
+
+    # Declare the number of days in the range.
+    my $offset = 0;
+
     # Bucket for our result list.
     my @results;
+
+    for(0 .. $n) {
+        # Get a random number of days in the range.
+        $offset = int(rand $range->length);
+
+        # Save the start date plus the offest.
+        push @results, $date1 + $offset;
+    }
 
     return @results;
 }
