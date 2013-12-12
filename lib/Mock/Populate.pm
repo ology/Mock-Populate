@@ -117,23 +117,22 @@ sub stats_distrib {
 
     # Roll!
     for(0 .. $n) {
-        my $x = 0;
         # Select distribution.
         if ($t eq 'c') {
             # Chi-squared
-            $x = Statistics::Distributions::chisqrdistr($d, rand);
+            push @results, Statistics::Distributions::chisqrdistr($d, rand);
         }
         elsif ($t eq 's') {
             # Student's T
-            $x = Statistics::Distributions::tdistr($d, rand);
+            push @results, Statistics::Distributions::tdistr($d, rand);
         }
         elsif ($t eq 'f') {
             # F distribution
-            $x = Statistics::Distributions::fdistr($d, $e, rand);
+            push @results, Statistics::Distributions::fdistr($d, $e, rand);
         }
         else {
             # Normal
-            $x = Statistics::Distributions::udistr(rand);
+            push @results, Statistics::Distributions::udistr(rand);
         }
     }
 
