@@ -126,7 +126,6 @@ sub stats_distrib {
             # Normal
             $x = Statistics::Distributions::udistr(rand);
         }
-        printf "%.*f\n", $p, $x;
     }
 
     return @results;
