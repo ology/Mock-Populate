@@ -19,11 +19,12 @@ Mock::Populate - Handy mock data creation
 
 =head1 SYNOPSIS
 
-  > perl Date-Ranger 1900-01-01 2020-12-31 1000 > dates.txt
-  > perl Number-Ranger 1000 5000 2 1000 > nums.txt
-  > perl Personify b 2 1000 > people.txt
-  > perl Stats-Distrib n 3 1000 > stats.txt
-  > perl Collate people.txt dates.txt nums.txt stats.txt > mock-data.txt
+  > perl Date-Ranger 1900-01-01 2020-12-31 1000 > dates.dat
+  > perl Time-Ranger '01:02:03' '23:59:59' 1000 > times.dat
+  > perl Number-Ranger 1000 5000 2 1000 > nums.dat
+  > perl Personify b 2 1000 > people.dat
+  > perl Stats-Distrib n 3 1000 > stats.dat
+  > perl Collate dates.dat times.dat nums.dat people.dat stats.dat > mock.dat
 
 =head1 DESCRIPTION
 
@@ -77,10 +78,12 @@ L<Data::SimplePassword>
 
 L<Date::Range>
 
+L<Date::Simple>
+
+L<List::Util>
+
 L<Mock::Person>
 
 L<Statistics::Distribution>
-
-L<List::Util>
 
 =cut
