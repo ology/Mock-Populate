@@ -73,7 +73,14 @@ sub personify {
 
 =head2 stats_distrib()
 
+  @results = stats_distrib($type, $prec, $dof, $n)
+
+Return a list of B<$n> distribution values.  The type, precision,
+degrees-of-freedom and desired number of data-points arguments are optional.
+
 =head3 TYPES
+
+This function uses single letter identifiers:
 
   u: Normal distribution (default)
   c: Chi-squared distribution
@@ -81,6 +88,8 @@ sub personify {
   f: F distribution
 
 =head3 DEGREES OF FREEDOM
+
+Given the type, this function accepts the following:
 
   c: A single integer
   s: A single integer
