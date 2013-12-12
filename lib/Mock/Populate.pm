@@ -56,6 +56,34 @@ sub number_ranger {
     # Bucket for our result list.
     my @results;
 
+    # Get start and end numbers.
+    my $i = defined $_[0] ? shift : 0;
+    my $j = defined $_[0] ? shift : 9;
+    # Get the decimal precision.
+    my $p = defined $_[0] ? shift : 2;
+    # Do we want random numbers?
+    my $r = defined $_[0] ? shift : 0;
+    # Get the number of data points desired.
+    my $n = defined $_[0] ? shift : 9;
+
+    # Do we want random numbers?
+    if ($r) {
+        # Roll!
+        for(0 .. $n) {
+            # Get our random candidate.
+            my $x = rand($j);
+            # Make sure it is above the start value.
+            while ($x < $i) {
+                $x = rand($j);
+            }
+            push @results, $x;
+        }
+    }
+    else {
+        # Use a simple sequence of integers.
+        @results = ($i .. $j);
+    }
+
     return @results;
 }
 
