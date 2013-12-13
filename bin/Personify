@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+#
+# Personify - Generate a set of random person names. (Default: US)
+# -- gene+mock@ology.net
+#
 use strict;
 use warnings;
 

@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+#
+# Number-Ranger - Generate a range of sequential or random integer or floating point numbers.
+# -- gene+mock@ology.net
+#
 use strict;
 use warnings;
 

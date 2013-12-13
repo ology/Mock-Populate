@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+#
+# Date-Ranger - Generate random YYYY-MM-DD dates within a range.
+# -- gene+mock@ology.net
+#
 use strict;
 use warnings;
 

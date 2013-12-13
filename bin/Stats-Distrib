@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Stats-Distrib - Generate various distributions
+# Stats-Distrib - Generate random selections from various distributions.
 # gene+mock@ology.net
 #
 use strict;
