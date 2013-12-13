@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Handy mock data creation
 
-our $VERSION = '0.01';
+our $VERSION = '0.01_01';
 
 use strict;
 use warnings;
@@ -329,9 +329,12 @@ sub stats_distrib {
 
 =head2 collate()
 
+This function is not yet implemented.
+
 =cut
 
 sub collate { # 
+    warn "Not yet implemented\n";
 }
 
 1;
