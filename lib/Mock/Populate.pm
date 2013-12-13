@@ -120,6 +120,9 @@ sub time_ranger {
     # Declare the number of seconds.
     my $offset = 0;
 
+    # Bucket for our result list.
+    my @results;
+
     # Generate a time, N times.
     for(0 .. $n) {
         # Get a random number of seconds in the range.
@@ -129,14 +132,15 @@ sub time_ranger {
         if ($stamp) {
             # In HH:MM::SS format.
             my $time = scalar localtime($start_time + $offset);
-            print +(split / /, $time)[3];
+            push @results, (split / /, $time)[3];
         }
         else {
             # As a number of seconds from the "epoc."
-            print $start_time + $offset;
+            push @results, $start_time + $offset;
         }
-        print "\n";
     }
+
+    return @results;
 }
 
 sub _now { # Return hour, minute, second.
@@ -346,6 +350,8 @@ L<List::Util>
 
 L<Mock::Person>
 
-L<Statistics::Distribution>
+L<Statistics::Distributions>
+
+L<Time::Local>
 
 =cut
