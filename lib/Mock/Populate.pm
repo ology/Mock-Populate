@@ -330,7 +330,8 @@ sub stats_distrib {
 
 =head2 collate()
 
-This function is not yet implemented.
+Return a list of lists representing a 2D table of rows, given the lists
+provided, with each member added to a row, respectively.
 
 =cut
 
