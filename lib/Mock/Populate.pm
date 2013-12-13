@@ -22,12 +22,13 @@ Mock::Populate - Mock data creation
 =head1 SYNOPSIS
 
   use Mock::Populate;
+  @ids    = Mock::Populate::number_ranger(1, 1001, 0, 0, 1000);
   @dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', 1000);
   @times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', 1000);
   @nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, 1000);
   @people = Mock::Populate::personify('b', 2, 'us', 1000);
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
-  @collated = Mock::Populate::collate(\@dates, \@times, \@nums, \@people, \@stats);
+  @collated = Mock::Populate::collate(\@ids, \@dates, \@times, \@nums, \@people, \@stats);
 
 =head1 DESCRIPTION
 
