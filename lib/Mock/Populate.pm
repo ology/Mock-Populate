@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use strict;
 use warnings;
@@ -31,7 +31,7 @@ Mock::Populate - Mock data creation
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
   @shuff  = Mock::Populate::shuffler(1000, qw(foo bar baz goo ber buz));
   @string = Mock::Populate::stringer(32, 'base64', 1000);
-  @imgs   = Mock::Populate::imager(256, 1000);
+  @imgs   = Mock::Populate::imager(1000);
   @collated = Mock::Populate::collate(
     \@ids, \@dates, \@times, \@nums, \@people, \@stats, \@shuff, \@string);
 
@@ -379,6 +379,7 @@ C<rndpassword> program, but allows you to generate a finite number of results.
   ascii     n:.T<Gr!,e*[k=eu  # visible ascii (a.k.a. spaghetti)
   base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z /+
   simple    xek4imbjcmctsxd3  # 0..9 a..z
+  hex       89504e470d0a1a0a  # 0..9, 'a'..'f'
   alpha     femvifzscyvvlwvn  # a..z
   digit     7563919623282657  # 0..9
   binary    1001011110000101
@@ -409,6 +410,7 @@ sub stringer {
         digit   => [ 0..9 ],
         binary  => [ 0, 1 ],
         morse   => [ qw(. -) ],
+        hex     => [ 0..9, 'a'..'f' ],
     };
     # Set the chars based on the given type.
     $sp->chars( @{ $chars->{$type} } );
@@ -428,20 +430,13 @@ sub stringer {
 
   @results = imager($size, $n)
 
-Return a list of B<$n> images.  The pixel size and number of data-points are
-optional.  The defaults are:
+Return a list of B<$n> images.  The number of data-points is optional. Default:
 
   n: 10
-  size: 1px
-
-If the size is given as 0, the imager sizes are randomized in the range 1 to 64
-pixels.
 
 =cut
 
 sub imager {
-    # Get the pixel size.
-    my $size = defined $_[0] ? shift : 1;
     # Get the number of data points desired.
     my $n = defined $_[0] ? shift : 9;
 
