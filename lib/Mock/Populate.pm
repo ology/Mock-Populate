@@ -10,6 +10,7 @@ use warnings;
 use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
+use Image::Dot;
 use List::Util qw(shuffle);
 use Mock::Person;
 use Statistics::Distributions;
@@ -30,7 +31,7 @@ Mock::Populate - Mock data creation
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
   @shuff  = Mock::Populate::shuffler(1000, qw(foo bar baz goo ber buz));
   @string = Mock::Populate::stringer(32, 'base64', 1000);
-  @blobs  = Mock::Populate::blober(256, 1000);
+  @imgs   = Mock::Populate::imager(256, 1000);
   @collated = Mock::Populate::collate(
     \@ids, \@dates, \@times, \@nums, \@people, \@stats, \@shuff, \@string);
 
@@ -423,19 +424,36 @@ sub stringer {
     return @results;
 }
 
-=head2 blober()
+=head2 imager()
 
-  @results = blober($size, $n)
+  @results = imager($size, $n)
 
-Return a list of B<$n> binary items.  The size and number of data-points
-arguments are optional.  The defaults are:
+Return a list of B<$n> images.  The pixel size and number of data-points are
+optional.  The defaults are:
 
   n: 10
-  size: 8kB
+  size: 1px
+
+If the size is given as 0, the imager sizes are randomized in the range 1 to 64
+pixels.
 
 =cut
 
-sub blober {
+sub imager {
+    # Get the pixel size.
+    my $size = defined $_[0] ? shift : 1;
+    # Get the number of data points desired.
+    my $n = defined $_[0] ? shift : 9;
+
+    # Declare a bucket for our results.
+    my @results = ();
+
+    # Generate images.
+    for (0 .. $n) {
+        push @results, dot_PNG_RGB(0, 0, 0);
+    }
+
+    return @results;
 }
 
 =head2 collate()
