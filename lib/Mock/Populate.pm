@@ -28,6 +28,7 @@ Mock::Populate - Mock data creation
   @nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, 1000);
   @people = Mock::Populate::personify('b', 2, 'us', 1000);
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
+  @shuff  = Mock::Populate::shuffler(1000, [qw(a b c d e f g h i j)]);
   @collated = Mock::Populate::collate(\@ids, \@dates, \@times, \@nums, \@people, \@stats);
 
 =head1 DESCRIPTION
@@ -331,6 +332,26 @@ sub stats_distrib {
     }
 
     return @results;
+}
+
+=head2 shuffler()
+
+  @results = shuffler($n, @items)
+
+Return a shuffled list of B<$n> items.  The items and number of data-points
+arguments are optional.  The defaults are:
+
+  n: 10
+  items: a b c d e f g h i j
+
+=cut
+
+sub shuffler {
+    # Get the desired number of data-points.
+    my $n = defined $_[0] ? shift : 9;
+    # Get the items to shuffle.
+    my @items = @_ ? @_ : ['a' .. 'j'];
+    return shuffle(@items);
 }
 
 =head2 collate()
