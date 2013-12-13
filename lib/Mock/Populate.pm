@@ -1,6 +1,6 @@
 package Mock::Populate;
 
-# ABSTRACT: Handy mock data creation
+# ABSTRACT: Mock data creation
 
 our $VERSION = '0.0201';
 
@@ -17,7 +17,7 @@ use Time::Local;
 
 =head1 NAME
 
-Mock::Populate - Handy mock data creation
+Mock::Populate - Mock data creation
 
 =head1 SYNOPSIS
 
