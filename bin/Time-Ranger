@@ -6,26 +6,39 @@
 use strict;
 use warnings;
 
-use Time::Simple::Range;
+#use Time::Local;
 
 # Get start and end times.
-my $t1 = shift || die "Usage: perl $0 HH:MM:SS [HH:MM:SS]\n";
-my $t2 = shift || now();
-my $n  = shift || 9;
+my $start = shift || die "Usage: perl $0 HH:MM:SS [HH:MM:SS]\n";
+my $end   = shift || '';
+my $n     = shift || 9;
 
-# Convert the dates into a range.
-my $range = Time::Simple::Range->new($t1, $t2);
+my @start = split(':', $start);
+my @end   = $end ? split(':', $end) : now();
+#warn "S->E: @start -> @end\n";
+
+# Compute the number of seconds between start and end.
+my $range = 0;
 
 # Declare the number of seconds.
 my $offset = 0;
 
+=for private
 for(0 .. $n) {
     # Get a random number of seconds in the range.
-    $offset = int(rand $range->duration);
-
+    $offset = int(rand $range);
+    my ($year,$month,$day, $hour,$min,$sec) =
+        Add_N_Delta_YMDHMS($year,$month,$day, $hour,$min,$sec,
+                           $D_y,$D_m,$D_d, $Dhh,$Dmm,$Dss);
     # TODO Print the start time plus the offest seconds.
-    print $t1 + $offset;
+    print $start + $offset;
+}
+=cut
+
+sub now {
+    my ($sec, $min, $hour, $mday, $mon, $year) = localtime(time);
+    $year += 1900;
+    $mon++;
+    return $year, $mon, $mday, $hour, $min, $sec;
 }
 
-sub now { # 
-}
