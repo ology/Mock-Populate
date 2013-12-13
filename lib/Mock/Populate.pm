@@ -30,6 +30,7 @@ Mock::Populate - Mock data creation
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
   @shuff  = Mock::Populate::shuffler(1000, qw(foo bar baz goo ber buz));
   @string = Mock::Populate::stringer(32, 'base64', 1000);
+  @blobs  = Mock::Populate::blober(256, 1000);
   @collated = Mock::Populate::collate(
     \@ids, \@dates, \@times, \@nums, \@people, \@stats, \@shuff, \@string);
 
@@ -275,7 +276,7 @@ The defaults are:
   degrees-of-freedom: 2
   n: 10
 
-=head3 TYPES
+=head3 Types
 
 This function uses single letter identifiers:
 
@@ -284,7 +285,7 @@ This function uses single letter identifiers:
   s: Student's T distribution
   f: F distribution
 
-=head3 DEGREES OF FREEDOM
+=head3 Degrees of freedom
 
 Given the type, this function accepts the following:
 
@@ -420,6 +421,21 @@ sub stringer {
     }
 
     return @results;
+}
+
+=head2 blober()
+
+  @results = blober($size, $n)
+
+Return a list of B<$n> binary items.  The size and number of data-points
+arguments are optional.  The defaults are:
+
+  n: 10
+  size: 8kB
+
+=cut
+
+sub blober {
 }
 
 =head2 collate()
