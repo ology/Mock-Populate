@@ -10,10 +10,11 @@ use warnings;
 use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
+use List::Util qw(shuffle);
 use lib '/Users/gene/sandbox/github/ology/Mock-Person/lib';
 use Mock::Person;
 use Statistics::Distributions;
-use List::Util qw(shuffle);
+use Time::Local;
 
 =head1 NAME
 
@@ -78,6 +79,68 @@ sub date_ranger {
     }
 
     return @results;
+}
+
+=head2 time_ranger()
+
+    @results = time_ranger($stamp, $start, $end, $n);
+
+Return a list of B<$n> random times within a range.  The start and end times and
+desired number of data-points arguments are all optional.  The defaults are:
+
+  stamp: 1 (boolean)
+  start: 00-00-00
+  end: now (computed if not given)
+  n: 10
+
+The times must be given as B<HH-MM-SS> strings.
+
+=cut
+
+sub time_ranger {
+    # Do we want output in HH::MM:SS stamp or "seconds since unix epoc?"
+    my $stamp = defined $_[0] ? shift : 1;
+    # Get start and end times.
+    my $start = shift || '00:00:00';
+    my $end   = shift || '';
+    # Set the desired number of data-points.
+    my $n     = shift || 9;
+
+    # Split the :-separated times.
+    my @start = split ':', $start;
+    my @end   = $end ? split(':', $end) : _now();
+    #warn "S->E: @start -> @end\n";
+
+    # Compute the number of seconds between start and end.
+    my $start_time = timegm(@start[2, 1, 0], (localtime(time))[3, 4, 5]);
+    my $end_time   = timegm(@end[2, 1, 0], (localtime(time))[3, 4, 5]);
+    my $range = $end_time - $start_time;
+    #warn "R: $end_time (@end) - $start_time (@start) = $range\n";
+
+    # Declare the number of seconds.
+    my $offset = 0;
+
+    # Generate a time, N times.
+    for(0 .. $n) {
+        # Get a random number of seconds in the range.
+        $offset = int(rand $range);
+
+        # Print the start time plus the offest seconds.
+        if ($stamp) {
+            # In HH:MM::SS format.
+            my $time = scalar localtime($start_time + $offset);
+            print +(split / /, $time)[3];
+        }
+        else {
+            # As a number of seconds from the "epoc."
+            print $start_time + $offset;
+        }
+        print "\n";
+    }
+}
+
+sub _now { # Return hour, minute, second.
+    return (localtime(time))[2, 1, 0];
 }
 
 =head2 number_ranger()
