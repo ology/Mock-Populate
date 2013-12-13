@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+#
+#
+use strict;
+use warnings;
+
+use Time::Simple::Range;
+
+# Get start and end times.
+my $t1 = shift || die "Usage: perl $0 HH:MM:SS [HH:MM:SS]\n";
+my $t2 = shift || now();
+my $n  = shift || 9;
+
+# Convert the dates into a range.
+my $range = Time::Simple::Range->new($t1, $t2);
+
+# Declare the number of seconds.
+my $offset = 0;
+
+for(0 .. $n) {
+    # Get a random number of seconds in the range.
+    $offset = int(rand $range->duration);
+
+    # TODO Print the start time plus the offest seconds.
+    print $t1 + $offset;
+}
+
+sub now { # 
+}
