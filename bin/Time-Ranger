@@ -8,7 +8,7 @@ use warnings;
 
 use Time::Local;
 
-# Do we want output in unix time or stamp?
+# Do we want output in HH::MM:SS stamp or "seconds since unix epoc?"
 my $stamp = defined $ARGV[0] ? shift : 1;
 # Get start and end times.
 my $start = shift || die "Usage: perl $0 HH:MM:SS [HH:MM:SS]\n";
