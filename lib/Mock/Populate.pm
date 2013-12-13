@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Handy mock data creation
 
-our $VERSION = '0.02';
+our $VERSION = '0.0201';
 
 use strict;
 use warnings;
@@ -21,18 +21,22 @@ Mock::Populate - Handy mock data creation
 
 =head1 SYNOPSIS
 
-  > perl Date-Ranger 1900-01-01 2020-12-31 1000 > dates.dat
-  > perl Time-Ranger '01:02:03' '23:59:59' 1000 > times.dat
-  > perl Number-Ranger 1000 5000 2 1000 > nums.dat
-  > perl Personify b 2 1000 > people.dat
-  > perl Stats-Distrib n 3 1000 > stats.dat
-  > perl Collate dates.dat times.dat nums.dat people.dat stats.dat > mock.dat
+  use Mock::Populate;
+  @dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', 1000);
+  @times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', 1000);
+  @nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, 1000);
+  @people = Mock::Populate::personify('b', 2, 'us', 1000);
+  @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
+  @collated = Mock::Populate::collate(\@dates, \@times, \@nums, \@people, \@stats);
 
 =head1 DESCRIPTION
 
-This is a set of modules and scripts handy for mock data creation.
+This is a set of functions for mock data creation.
 
-See the documentation (and source) of each script for arguments and usage.
+Each function produces a list of elements that can be used as database columns.
+The handy C<collate()> function takes these columns and returns a list of
+(arrayref) rows.  This can then be processed into CSV, JSON, etc.  It can also
+be directly inserted into your favorite database, with your favorite perl ORM.
 
 =head1 FUNCTIONS
 
