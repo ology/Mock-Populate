@@ -13,7 +13,7 @@ my $stamp = defined $ARGV[0]
     ? shift
     : die "Usage: perl $0 stamp HH:MM:SS [HH:MM:SS]\n";
 # Get start and end times.
-my $start = shift || '00:00:00'
+my $start = shift || '00:00:00';
 my $end   = shift || '';
 # Set the desired number of data-points.
 my $n     = shift || 9;
