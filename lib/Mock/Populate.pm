@@ -45,7 +45,7 @@ Return a list of B<$n> random dates within a range.  The start and end dates and
 desired number of data-points arguments are all optional.  The defaults are:
 
   start: 2000-01-01
-  end: today
+  end: today (computed if not given)
   n: 10
 
 The dates must be given as B<YYYY-MM-DD> strings.
