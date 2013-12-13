@@ -2,6 +2,8 @@ Revision history for Mock::Polulate
 
 {{$NEXT}}
     - Improved documentation.
+    - Added ultra-simple imager() function.
+    - Added hex char type to stringer()
 
 0.04  2013-12-13
     - Added the stringer() function.
