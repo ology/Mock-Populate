@@ -354,6 +354,72 @@ sub shuffler {
     return shuffle(@items);
 }
 
+=head2 stringer()
+
+  @results = stringer($n, @items)
+
+Return a shuffled list of B<$n> items.  The items and number of data-points
+arguments are optional.  The defaults are:
+
+  type: default
+  length: 8
+  n: 10
+
+* This function is nearly identical to the L<Data::SimplePassword>
+C<rndpassword> program, but allows you to generate a finite number of results.
+
+=head2 TYPES
+
+  Types     output sample
+  default   0xaVbi3O2Lz8E69s  # 0..9 a..z A..Z
+  ascii     n:.T<Gr!,e*[k=eu  # visible ascii (a.k.a. spaghetti)
+  base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z /+
+  simple    xek4imbjcmctsxd3  # 0..9 a..z
+  alpha     femvifzscyvvlwvn  # a..z
+  digit     7563919623282657  # 0..9
+  binary    1001011110000101
+  morse     -.--...-.--.-..-
+
+=cut
+
+sub stringer {
+
+    # Get desired password length.
+    my $length = defined $_[0] ? shift : 8;
+    # Get the type of char generator to use.
+    my $type = defined $_[0] ? shift : 'default';
+    # Get the number of data points desired.
+    my $n = defined $_[0] ? shift : 9;
+
+    # Declare a pw instance.
+    my $sp = Data::SimplePassword->new;
+
+    # Declare the types (lifted directly from rndpassword).
+    my $chars = {
+        default => [ 0..9, 'a'..'z', 'A'..'Z' ],
+        ascii   => [ map { sprintf "%c", $_ } 33 .. 126 ],
+        base64  => [ 0..9, 'a'..'z', 'A'..'Z', qw(+ /) ],
+        b64     => [ 0..9, 'a'..'z', 'A'..'Z', qw(+ /) ],
+        simple  => [ 0..9, 'a'..'z' ],
+        alpha   => [ 'a'..'z' ],
+        digit   => [ 0..9 ],
+        binary  => [ 0, 1 ],
+        morse   => [ qw(. -) ],
+    };
+    # Set the chars based on the given type.
+    $sp->chars( @{ $chars->{$type} } );
+
+    # Declare a bucket for our results.
+    my @results = ();
+
+    # Roll!
+    for(0 .. $n) {
+        push @results, $sp->make_password($length);
+    }
+
+    return @results;
+}
+
 =head2 collate()
 
 Return a list of lists representing a 2D table of rows, given the lists

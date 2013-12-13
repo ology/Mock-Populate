@@ -1,6 +1,9 @@
 Revision history for Mock::Polulate
 
 {{$NEXT}}
+    - Added the stringer() function.
+
+0.03  2013-12-13
     - Improved documentation.
     - Added the shuffler() function.
 
