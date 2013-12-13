@@ -13,7 +13,7 @@ is @x, 10, 'number_ranger';
 is @x, 10, 'personify';
 @x = Mock::Populate::stats_distrib();
 is @x, 10, 'stats_distrib';
-#@x = Mock::Populate::collate(); # TODO
-#is @x, 10, 'collate';
+@x = Mock::Populate::collate();
+is @x, 10, 'collate';
 
 done_testing();
