@@ -350,7 +350,7 @@ sub shuffler {
     # Get the desired number of data-points.
     my $n = defined $_[0] ? shift : 9;
     # Get the items to shuffle.
-    my @items = @_ ? @_ : ['a' .. 'j'];
+    my @items = @_ ? @_ : ('a' .. 'j');
     return shuffle(@items);
 }
 
