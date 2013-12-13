@@ -21,13 +21,13 @@ my $n     = shift || 9;
 # Split the :-separated times.
 my @start = split ':', $start;
 my @end   = $end ? split(':', $end) : now();
-warn "S->E: @start -> @end\n";
+#warn "S->E: @start -> @end\n";
 
 # Compute the number of seconds between start and end.
 my $start_time = timegm(@start[2, 1, 0], (localtime(time))[3, 4, 5]);
 my $end_time   = timegm(@end[2, 1, 0], (localtime(time))[3, 4, 5]);
 my $range = $end_time - $start_time;
-warn "R: $end_time (@end) - $start_time (@start) = $range\n";
+#warn "R: $end_time (@end) - $start_time (@start) = $range\n";
 
 # Declare the number of seconds.
 my $offset = 0;
