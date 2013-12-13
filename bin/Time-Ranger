@@ -11,7 +11,7 @@ use Time::Local;
 # Do we want output in HH::MM:SS stamp or "seconds since unix epoc?"
 my $stamp = defined $ARGV[0]
     ? shift
-    : die "Usage: perl $0 stampe HH:MM:SS [HH:MM:SS]\n";
+    : die "Usage: perl $0 stamp HH:MM:SS [HH:MM:SS]\n";
 # Get start and end times.
 my $start = shift || '00:00:00'
 my $end   = shift || '';
