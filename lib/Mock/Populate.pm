@@ -29,7 +29,9 @@ Mock::Populate - Mock data creation
   @people = Mock::Populate::personify('b', 2, 'us', 1000);
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
   @shuff  = Mock::Populate::shuffler(1000, qw(foo bar baz goo ber buz));
-  @collated = Mock::Populate::collate(\@ids, \@dates, \@times, \@nums, \@people, \@stats);
+  @string = Mock::Populate::stringer(32, 'base64', 1000);
+  @collated = Mock::Populate::collate(
+    \@ids, \@dates, \@times, \@nums, \@people, \@stats, \@shuff, \@string);
 
 =head1 DESCRIPTION
 
