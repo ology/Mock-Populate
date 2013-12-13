@@ -11,7 +11,6 @@ use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
 use List::Util qw(shuffle);
-use lib '/Users/gene/sandbox/github/ology/Mock-Person/lib';
 use Mock::Person;
 use Statistics::Distributions;
 use Time::Local;
