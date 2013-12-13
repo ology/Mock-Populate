@@ -11,7 +11,6 @@ use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
 use List::Util qw(shuffle);
-use List::MoreUtils qw(mesh);
 use Mock::Person;
 use Statistics::Distributions;
 use Time::Local;
@@ -338,18 +337,17 @@ This function is not yet implemented.
 sub collate {
     # Accept any number of columns.
     my @columns = @_;
+
     # Make a copy of the columns to peel off.
     my @lists = @columns;
-    # Declare the bucket for our meshed lists.
+
+    # Declare the bucket for our arrayrefs.
     my @collated = ();
-    # Mesh our lists.
+
+    # Add each list item to rows of collated.
     for my $list (@columns) {
-        if (@collated) {
-            mesh @collated, @$list;
-        }
-        else {
-            @collated = @$list;
-            next;
+        for my $i (0 .. @$list - 1) {
+            push @{ $collated[$i] }, $list->[$i];
         }
     }
     return @collated;
