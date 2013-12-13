@@ -399,4 +399,6 @@ L<Statistics::Distributions>
 
 L<Time::Local>
 
+L<Data::Random> does nearly the exact same thing. Whoops!
+
 =cut
