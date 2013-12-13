@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# ABSTRCT: Generate random selections from various distributions
+# ABSTRACT: Generate random selections from various distributions
 # PODNAME: bin/Stats-Distrib
 
 use strict;

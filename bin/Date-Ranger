@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# ABSTRCT: Generate random YYYY-MM-DD dates within a range
+# ABSTRACT: Generate random YYYY-MM-DD dates within a range
 # PODNAME: bin/Date-Ranger
 
 use strict;

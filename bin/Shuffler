@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# ABSTRCT: Generate a shuffled list of things!
+# ABSTRACT: Generate a shuffled list of things!
 # PODNAME: bin/Shuffler
 
 use strict;

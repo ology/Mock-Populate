@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# ABSTRCT: Generate a set of random person names. (Default: US)
+# ABSTRACT: Generate a set of random person names. (Default: US)
 # PODNAME: bin/Personify
 
 use strict;

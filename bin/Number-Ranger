@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# ABSTRCT: Generate a range ofsequential or random integer or floating point numbers
+# ABSTRACT: Generate a range ofsequential or random integer or floating point numbers
 # PODNAME: bin/Number-Ranger
 
 use strict;
