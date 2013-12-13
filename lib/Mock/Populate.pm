@@ -11,6 +11,7 @@ use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
 use List::Util qw(shuffle);
+use List::MoreUtils qw(mesh);
 use Mock::Person;
 use Statistics::Distributions;
 use Time::Local;
@@ -73,8 +74,9 @@ sub date_ranger {
         # Get a random number of days in the range.
         $offset = int(rand $range->length);
 
-        # Save the start date plus the offest.
-        push @results, $date1 + $offset;
+        # Save the stringified start date plus the offest.
+        my $date = $date1 + $offset;
+        push @results, "$date";
     }
 
     return @results;
@@ -333,8 +335,24 @@ This function is not yet implemented.
 
 =cut
 
-sub collate { # 
-    warn "Not yet implemented\n";
+sub collate {
+    # Accept any number of columns.
+    my @columns = @_;
+    # Make a copy of the columns to peel off.
+    my @lists = @columns;
+    # Declare the bucket for our meshed lists.
+    my @collated = ();
+    # Mesh our lists.
+    for my $list (@columns) {
+        if (@collated) {
+            mesh @collated, @$list;
+        }
+        else {
+            @collated = @$list;
+            next;
+        }
+    }
+    return @collated;
 }
 
 1;
