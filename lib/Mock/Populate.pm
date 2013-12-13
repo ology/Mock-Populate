@@ -424,6 +424,8 @@ sub stringer {
 
 =head2 collate()
 
+  @rows = collate(@columns)
+
 Return a list of lists representing a 2D table of rows, given the lists
 provided, with each member added to a row, respectively.
 
