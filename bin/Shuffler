@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-#
-# Shuffler - Generate a shuffled list of things!
-# -- gene+mock@ology.net
-#
+# ABSTRCT: Generate a shuffled list of things!
+# PODNAME: bin/Shuffler
+
 use strict;
 use warnings;
 use List::Util qw(shuffle);

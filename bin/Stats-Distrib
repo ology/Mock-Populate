@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-#
-# Stats-Distrib - Generate random selections from various distributions.
-# gene+mock@ology.net
-#
+# ABSTRCT: Generate random selections from various distributions
+# PODNAME: bin/Stats-Distrib
+
 use strict;
 use warnings;
 

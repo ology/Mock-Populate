@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-#
-# Number-Ranger - Generate a range of sequential or random integer or floating point numbers.
-# -- gene+mock@ology.net
-#
+# ABSTRCT: Generate a range ofsequential or random integer or floating point numbers
+# PODNAME: bin/Number-Ranger
+
 use strict;
 use warnings;
 
