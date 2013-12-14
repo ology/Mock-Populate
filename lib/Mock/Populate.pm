@@ -450,7 +450,7 @@ sub imager {
     my @results = ();
 
     # Start with a 1x1 pixel image.
-    my $img = dot_PNG_RGB(0, 0, 0); 
+    my $img = dot_PNG_RGB(0, 0, 0);
 
     # XXX This is naive and sad:
     # Pull-apart the image data.
@@ -461,7 +461,7 @@ sub imager {
     for (0 .. $n) {
         # Increase the byte size (not dimension).
         my $i = $head . ($img x int(rand $size)) . $tail;
-        warn "L: ",length($i), "\n";
+        #warn "L: ",length($i), "\n";
 
         # Save the result.
         push @results, $i;
