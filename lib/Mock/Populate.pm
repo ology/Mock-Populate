@@ -31,7 +31,7 @@ Mock::Populate - Mock data creation
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, 1000);
   @shuff  = Mock::Populate::shuffler(1000, qw(foo bar baz goo ber buz));
   @string = Mock::Populate::stringer(32, 'base64', 1000);
-  @imgs   = Mock::Populate::imager(1000);
+  @imgs   = Mock::Populate::imager(10, 1000);
   @collated = Mock::Populate::collate(
     \@ids, \@dates, \@times, \@nums, \@people, \@stats, \@shuff, \@string);
 
@@ -437,15 +437,30 @@ Return a list of B<$n> images.  The number of data-points is optional. Default:
 =cut
 
 sub imager {
+    # Get desired size factor.
+    my $size = defined $_[0] ? shift : 8;
     # Get the number of data points desired.
     my $n = defined $_[0] ? shift : 9;
 
     # Declare a bucket for our results.
     my @results = ();
 
-    # Generate images.
+    # Start with a 1x1 pixel image.
+    my $img = dot_PNG_RGB(0, 0, 0); 
+
+    # XXX This is naive and sad:
+    # Pull-apart the image data.
+    (my $head = $img) =~ s/^(.*?IDAT).*$/$1/ms;
+    (my $tail = $img) =~ s/^.*?(IEND.*)$/$1/ms;
+    $img =~ s/^.*?IDAT(.*?)IEND.*$/$1/ms;
+
     for (0 .. $n) {
-        push @results, dot_PNG_RGB(0, 0, 0);
+        # Increase the byte size (not dimension).
+        my $i = $head . ($img x int(rand $size)) . $tail;
+        warn "L: ",length($i), "\n";
+
+        # Save the result.
+        push @results, $i;
     }
 
     return @results;
