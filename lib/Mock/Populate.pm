@@ -430,9 +430,13 @@ sub stringer {
 
   @results = imager($size, $n)
 
-Return a list of B<$n> images.  The number of data-points is optional. Default:
+Return a list of 1x1 pixel images of varying byte sizes (not image dimension).
+The size and number of data-points are both optional.
+
+The defaults are:
 
   n: 10
+  size: 8
 
 =cut
 
