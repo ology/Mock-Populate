@@ -1,6 +1,9 @@
 Revision history for Mock::Polulate
 
 {{$NEXT}}
+    - Made the imager() function produce random byte sizes.
+
+0.05  2013-12-13
     - Improved documentation.
     - Added ultra-simple imager() function.
     - Added hex char type to stringer()
