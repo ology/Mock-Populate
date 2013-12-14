@@ -372,14 +372,14 @@ arguments are optional.  The defaults are:
 * This function is nearly identical to the L<Data::SimplePassword>
 C<rndpassword> program, but allows you to generate a finite number of results.
 
-=head2 TYPES
+=head3 Types
 
   Types     output sample
   default   0xaVbi3O2Lz8E69s  # 0..9 a..z A..Z
-  ascii     n:.T<Gr!,e*[k=eu  # visible ascii (a.k.a. spaghetti)
-  base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z /+
+  ascii     n:.T<Gr!,e*[k=eu  # visible ascii
+  base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z / +
   simple    xek4imbjcmctsxd3  # 0..9 a..z
-  hex       89504e470d0a1a0a  # 0..9, 'a'..'f'
+  hex       89504e470d0a1a0a  # 0..9 a..f
   alpha     femvifzscyvvlwvn  # a..z
   digit     7563919623282657  # 0..9
   binary    1001011110000101
@@ -489,6 +489,8 @@ L<Data::SimplePassword>
 L<Date::Range>
 
 L<Date::Simple>
+
+L<Image::Dot>
 
 L<List::Util>
 
