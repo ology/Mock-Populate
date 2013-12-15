@@ -15,6 +15,7 @@ use List::Util qw(shuffle);
 use Mock::Person;
 use Statistics::Distributions;
 use Time::Local;
+use Text::Unidecode;
 
 =head1 NAME
 
@@ -27,13 +28,13 @@ Mock::Populate - Mock data creation
   $dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', $n);
   $times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', $n);
   $nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, $n);
-  $people = Mock::Populate::personify('b', 2, 'us', 0, $n);
   ($people, $email) = Mock::Populate::personify('b', 2, 'us', 1, $n);
+  ($people, undef) = Mock::Populate::personify('b', 2, 'us', 0, $n);
   $stats  = Mock::Populate::stats_distrib('u', 4, 2, $n);
   $shuff  = Mock::Populate::shuffler($n, qw(foo bar baz goo ber buz));
   $string = Mock::Populate::stringer(32, 'base64', $n);
   $imgs   = Mock::Populate::imager(10, $n);
-  $collated = Mock::Populate::collate($ids, $people, $email, $string);
+  $collated = Mock::Populate::collate($people, $email, $dates, $times);
 
 =head1 DESCRIPTION
 
@@ -264,11 +265,15 @@ sub personify {
     }
 
     # Generate email addresses if requested.
+    # first.last @example.{com,net,org,edu}
     my @email = ();
+    my @tld = qw( com net org edu );
     if ($e) {
-#        for my $p (@results) {
-#            push @email, 
-#        }
+        for my $p (@results) {
+            my @name = split / /, $p;
+            $_ = unidecode($_) for @name;
+            push @email, $name[0] . '.' . $name[-1] . '@example.' . $tld[rand @tld];
+        }
     }
 
     return \@results, \@email;
