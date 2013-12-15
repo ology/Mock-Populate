@@ -27,7 +27,7 @@ Mock::Populate - Mock data creation
   @dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', $n);
   @times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', $n);
   @nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, $n);
-  @people = Mock::Populate::personify('b', 2, 'us', $n);
+  @people = Mock::Populate::personify('b', 2, 'us', 1, $n);
   @stats  = Mock::Populate::stats_distrib('u', 4, 2, $n);
   @shuff  = Mock::Populate::shuffler($n, qw(foo bar baz goo ber buz));
   @string = Mock::Populate::stringer(32, 'base64', $n);
@@ -234,6 +234,8 @@ sub personify {
     my $d = defined $_[0] ? shift : 2;
     # Get the country to use.
     my $c = defined $_[0] ? shift : 'us';
+    # Should an email column be generated?
+    my $e = defined $_[0] ? shift : 0;
     # Get desired number of data-points.
     my $n = defined $_[0] ? shift : 9;
 
@@ -259,6 +261,12 @@ sub personify {
         else {
             push @results, $p;
         }
+    }
+
+    # Generate email addresses if requested.
+    if ($e) {
+#        for my $p (@results) {
+#        }
     }
 
     return @results;
