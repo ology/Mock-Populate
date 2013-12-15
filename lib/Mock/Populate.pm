@@ -50,29 +50,25 @@ be directly inserted into your favorite database, with your favorite perl ORM.
 
 =head2 date_ranger()
 
-    @results = date_ranger($start, $end, $n);
+  $results = date_ranger(start => $start, end => $end, N => $n);
 
-Return a list of B<$n> random dates within a range.  The start and end dates and
+Return a list of N random dates within a range.  The start and end dates and
 desired number of data-points arguments are all optional.  The defaults are:
 
   start: 2000-01-01
   end: today (computed if not given)
-  n: 10
+  N: 10
 
 The dates must be given as B<YYYY-MM-DD> strings.
 
 =cut
 
 sub date_ranger {
-
-    # Get start and end dates.
-    my $d1 = shift || '2000-01-01';
-    my $d2 = shift || today();
-    my $n  = shift || 9;
+    my %args = @_;
 
     # Convert the dates into a range.
-    my $date1 = date($d1);
-    my $date2 = date($d2);
+    my $date1 = date($args{start});
+    my $date2 = date($args{end});
     my $range = Date::Range->new($date1, $date2);
 
     # Declare the number of days in the range.
@@ -81,7 +77,7 @@ sub date_ranger {
     # Bucket for our result list.
     my @results;
 
-    for(0 .. $n) {
+    for(0 .. $args{N}) {
         # Get a random number of days in the range.
         $offset = int(rand $range->length);
 
@@ -95,32 +91,28 @@ sub date_ranger {
 
 =head2 time_ranger()
 
-    @results = time_ranger($stamp, $start, $end, $n);
+  $results = time_ranger(
+    stamp => $stamp, start => $start, end => $end,
+    N => $n);
 
-Return a list of B<$n> random times within a range.  The start and end times and
+Return a list of N random times within a range.  The start and end times and
 desired number of data-points arguments are all optional.  The defaults are:
 
   stamp: 1 (boolean)
   start: 00-00-00
   end: now (computed if not given)
-  n: 10
+  N: 10
 
 The times must be given as B<HH-MM-SS> strings.
 
 =cut
 
 sub time_ranger {
-    # Do we want output in HH::MM:SS stamp or "seconds since unix epoc?"
-    my $stamp = defined $_[0] ? shift : 1;
-    # Get start and end times.
-    my $start = shift || '00:00:00';
-    my $end   = shift || '';
-    # Set the desired number of data-points.
-    my $n     = shift || 9;
+    my %args = @_;
 
     # Split the :-separated times.
-    my @start = split ':', $start;
-    my @end   = $end ? split(':', $end) : _now();
+    my @start = split ':', $args{start};
+    my @end   = $args{end} ? split(':', $args{end}) : _now();
     #warn "S->E: @start -> @end\n";
 
     # Compute the number of seconds between start and end.
@@ -136,12 +128,12 @@ sub time_ranger {
     my @results;
 
     # Generate a time, N times.
-    for(0 .. $n) {
+    for(0 .. $args{N}) {
         # Get a random number of seconds in the range.
         $offset = int(rand $range);
 
         # Print the start time plus the offest seconds.
-        if ($stamp) {
+        if ($args{stamp}) {
             # In HH:MM::SS format.
             my $time = scalar localtime($start_time + $offset);
             push @results, (split / /, $time)[3];
@@ -161,51 +153,45 @@ sub _now { # Return hour, minute, second.
 
 =head2 number_ranger()
 
-  @results = number_ranger($start, $end, $prec, $random, $n)
+  $results = number_ranger(
+    start => $start, end => $end,
+    prec => $prec, random => $random,
+    N => $n)
 
-Return a list of B<$n> random numbers within a range.  The start, end,
-precision, whether we want random or sequential numbers and desired number of
-data-points arguments are all optional.  The defaults are:
+Return a list of N random numbers within a range.  The start, end, precision,
+whether we want random or sequential numbers and desired number of data-points
+arguments are all optional.  The defaults are:
 
   start: 0
   end: 9
   precision: 2
   random: 0
-  n: 10
+  N: 10
 
 =cut
 
 sub number_ranger {
+    my %args = @_;
 
     # Bucket for our result list.
     my @results;
 
-    # Get start and end numbers.
-    my $i = defined $_[0] ? shift : 0;
-    my $j = defined $_[0] ? shift : 9;
-    # Get the decimal precision.
-    my $p = defined $_[0] ? shift : 2;
     # Do we want random numbers?
-    my $r = defined $_[0] ? shift : 0;
-    # Get the number of data points desired.
-    my $n = defined $_[0] ? shift : 9;
-
-    # Do we want random numbers?
-    if ($r) {
+    if ($args{random}) {
         # Roll!
-        for(0 .. $n) {
+        for(0 .. $args{N}) {
             # Get our random candidate.
-            my $x = rand($j);
+            my $x = rand($args{end});
             # Make sure it is above the start value.
-            while ($x < $i) {
-                $x = rand($j);
+            while ($x < $args{start}) {
+                $x = rand($args{end});
             }
             push @results, $x;
         }
     }
     else {
         # Use a simple sequence of integers.
-        @results = ($i .. $j);
+        @results = ($args{start} .. $args{end});
     }
 
     return \@results;
@@ -213,49 +199,43 @@ sub number_ranger {
 
 =head2 personify()
 
-  @results = personify($gender, $names, $country, $n)
+  $results = personify(
+    gender => $gender, names => $names, country => $country,
+    N => $n)
 
-Return a list of B<$n> random names.  The gender, number of names and desired
+Return a list of N random names.  The gender, number of names and desired
 number of data-points arguments are all optional.  The defaults are:
 
   gender: both
   names: 2
   country: us
-  n: 10
+  N: 10
 
 =cut
 
 sub personify {
+    my %args = @_;
 
     # Bucket for our result list.
     my @results;
 
-    # Get gender. f: female, m: male, b: both
-    my $g = defined $_[0] ? shift : 'b';
-    # Get desired number of names.
-    my $d = defined $_[0] ? shift : 2;
-    # Get the country to use.
-    my $c = defined $_[0] ? shift : 'us';
-    # Get desired number of data-points.
-    my $n = defined $_[0] ? shift : 9;
-
     # Roll!
-    for my $i (0 .. $n) {
+    for my $i (0 .. $args{N}) {
         # Get our random person.
         my $p = '';
-        if (($g eq 'b' && $i % 2) || $g eq 'f') {
-            $p = Mock::Person::name(sex => 'female', country => $c);
+        if (($args{gender} eq 'b' && $i % 2) || $args{gender} eq 'f') {
+            $p = Mock::Person::name(sex => 'female', country => $args{country});
         }
         else {
-            $p = Mock::Person::name(sex => 'male', country => $c);
+            $p = Mock::Person::name(sex => 'male', country => $args{country});
         }
         # Only use the requested number of names.
         my @names = split / /, $p;
         my $name = '';
-        if ($d == 1) {
+        if ($args{names} == 1) {
             push @results, $names[-1];
         }
-        elsif ($d == 2) {
+        elsif ($args{names} == 2) {
             push @results, "@names[0,-1]";
         }
         else {
@@ -270,7 +250,7 @@ sub personify {
 
   $results = emailify(@people)
 
-Return a list of B<$n> email addresses based on a list of given names.
+Return a list of N email addresses based on a list of given names.
 
 =cut
 
@@ -301,16 +281,15 @@ sub emailify {
 
 =head2 distributor()
 
-  @results = distributor($type, $prec, $dof, $n)
+  $results = distributor(type => $type, prec => $prec, dof => $dof, N => $n)
 
-Return a list of B<$n> distribution values.  The type, precision,
-degrees-of-freedom and desired number of data-points arguments are optional.
-The defaults are:
+Return a list of N distribution values.  The type, precision, degrees-of-freedom
+and desired number of data-points arguments are optional.  The defaults are:
 
   type: u (normal)
   precision: 2
   degrees-of-freedom: 2
-  n: 10
+  N: 10
 
 =head3 Types
 
@@ -332,37 +311,29 @@ Given the type, this function accepts the following:
 =cut
 
 sub distributor {
-
-    # Get type of distribution.
-    my $p = defined $_[0] ? shift : 'u';
-    # Get digits of precision.
-    my $t = defined $_[0] ? shift : 2;
-    # Get desired degrees of freedom for the ChiSq, StudentT & F.
-    my $d = defined $_[0] ? shift : 2;
-    # Get desired number of data-points.
-    my $n = defined $_[0] ? shift : 9;
+    my %args = @_;
 
     # Separate numerator/denominator for F degs-of-freedm.
     my $e = 1;
-    ($d, $e) = split(/\//, $d) if $t eq 'f';
+    ($args{dof}, $e) = split(/\//, $args{dof}) if $args{type} eq 'f';
 
     # Bucket for our result list.
     my @results;
 
     # Roll!
-    for(0 .. $n) {
+    for(0 .. $args{N}) {
         # Select distribution.
-        if ($t eq 'c') {
+        if ($args{type} eq 'c') {
             # Chi-squared
-            push @results, Statistics::Distributions::chisqrdistr($d, rand);
+            push @results, Statistics::Distributions::chisqrdistr($args{dof}, rand);
         }
-        elsif ($t eq 's') {
+        elsif ($args{type} eq 's') {
             # Student's T
-            push @results, Statistics::Distributions::tdistr($d, rand);
+            push @results, Statistics::Distributions::tdistr($args{dof}, rand);
         }
-        elsif ($t eq 'f') {
+        elsif ($args{type} eq 'f') {
             # F distribution
-            push @results, Statistics::Distributions::fdistr($d, $e, rand);
+            push @results, Statistics::Distributions::fdistr($args{dof}, $e, rand);
         }
         else {
             # Normal
@@ -375,7 +346,7 @@ sub distributor {
 
 =head2 shuffler()
 
-  @results = shuffler($n, @items)
+  $results = shuffler($n, @items)
 
 Return a shuffled list of B<$n> items.  The items and number of data-points
 arguments are optional.  The defaults are:
@@ -395,14 +366,14 @@ sub shuffler {
 
 =head2 stringer()
 
-  @results = stringer($n, @items)
+  $results = stringer(type => $type, length => $length, N => $n)
 
-Return a shuffled list of B<$n> items.  The items and number of data-points
+Return a shuffled list of N items.  The items and number of data-points
 arguments are optional.  The defaults are:
 
   type: default
   length: 8
-  n: 10
+  N: 10
 
 * This function is nearly identical to the L<Data::SimplePassword>
 C<rndpassword> program, but allows you to generate a finite number of results.
@@ -424,13 +395,7 @@ C<rndpassword> program, but allows you to generate a finite number of results.
 =cut
 
 sub stringer {
-
-    # Get desired password length.
-    my $length = defined $_[0] ? shift : 8;
-    # Get the type of char generator to use.
-    my $type = defined $_[0] ? shift : 'default';
-    # Get the number of data points desired.
-    my $n = defined $_[0] ? shift : 9;
+    my %args = @_;
 
     # Declare a pw instance.
     my $sp = Data::SimplePassword->new;
@@ -450,18 +415,19 @@ sub stringer {
         pronoun => [],
     };
     # Set the chars based on the given type.
-    $sp->chars( @{ $chars->{$type} } );
+    $sp->chars( @{ $chars->{$args{type}} } );
 
     # Declare a bucket for our results.
     my @results = ();
 
     # Roll!
-    for(0 .. $n) {
-        if ($type eq 'pronoun') {
-            push @results, Text::Password::Pronounceable->generate($length, $length);
+    for(0 .. $args{N}) {
+        if ($args{type} eq 'pronoun') {
+            push @results, Text::Password::Pronounceable->generate(
+                $args{length}, $args{length});
         }
         else {
-            push @results, $sp->make_password($length);
+            push @results, $sp->make_password($args{length});
         }
     }
 
@@ -470,23 +436,20 @@ sub stringer {
 
 =head2 imager()
 
-  @results = imager($size, $n)
+  $results = imager(size => $size, N => $n)
 
-Return a list of 1x1 pixel images of varying byte sizes (not image dimension).
-The size and number of data-points are both optional.
+Return a list of N 1x1 pixel images of varying byte sizes (not image dimension).
+The byte size and number of data-points are both optional.
 
 The defaults are:
 
-  n: 10
+  N: 10
   size: 8
 
 =cut
 
 sub imager {
-    # Get desired size factor.
-    my $size = defined $_[0] ? shift : 8;
-    # Get the number of data points desired.
-    my $n = defined $_[0] ? shift : 9;
+    my %args = @_;
 
     # Declare a bucket for our results.
     my @results = ();
@@ -500,9 +463,9 @@ sub imager {
     (my $tail = $img) =~ s/^.*?(IEND.*)$/$1/ms;
     $img =~ s/^.*?IDAT(.*?)IEND.*$/$1/ms;
 
-    for (0 .. $n) {
+    for (0 .. $args{N}) {
         # Increase the byte size (not dimension).
-        my $i = $head . ($img x int(rand $size)) . $tail;
+        my $i = $head . ($img x int(rand $args{size})) . $tail;
         #warn "L: ",length($i), "\n";
 
         # Save the result.
@@ -514,7 +477,7 @@ sub imager {
 
 =head2 collate()
 
-  @rows = collate(@columns)
+  $rows = collate(@columns)
 
 Return a list of lists representing a 2D table of rows, given the lists
 provided, with each member added to a row, respectively.
@@ -529,15 +492,16 @@ sub collate {
     my @lists = @columns;
 
     # Declare the bucket for our arrayrefs.
-    my @collated = ();
+    my @results = ();
 
     # Add each list item to rows of collated.
     for my $list (@columns) {
         for my $i (0 .. @$list - 1) {
-            push @{ $collated[$i] }, $list->[$i];
+            push @{ $results[$i] }, $list->[$i];
         }
     }
-    return \@collated;
+
+    return \@results;
 }
 
 1;
@@ -558,6 +522,10 @@ L<List::Util>
 L<Mock::Person>
 
 L<Statistics::Distributions>
+
+L<Text::Password::Pronounceable>
+
+L<Text::Unidecode>
 
 L<Time::Local>
 
