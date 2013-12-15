@@ -1,6 +1,9 @@
 Revision history for Mock::Polulate
 
 {{$NEXT}}
+    - Allowed single name email addresses.
+
+0.07      2013-12-14 22:12:57 America/Los_Angeles
     - Added an emailify() function based on person names.
     - Made all functions return array references rather than lists.
 
