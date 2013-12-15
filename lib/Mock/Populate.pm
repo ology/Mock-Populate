@@ -215,7 +215,7 @@ arguments are all optional.  The defaults are:
   start: 0
   end: 9
   precision: 2
-  random: 0
+  random: 1
   N: 10
 
 =cut
