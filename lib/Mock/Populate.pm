@@ -7,6 +7,11 @@ our $VERSION = '0.0710';
 use strict;
 use warnings;
 
+use constant NDATA => 9;
+use constant PREC  => 2;
+use constant DOF   => 2;
+use constant SIZE  => 8;
+
 use Data::SimplePassword;
 use Date::Range;
 use Date::Simple qw(date today);
@@ -65,6 +70,10 @@ The dates must be given as B<YYYY-MM-DD> strings.
 
 sub date_ranger {
     my %args = @_;
+    # Set defaults.
+    $args{start} ||= '2001-01-01';
+    $args{end}   ||= today();
+    $args{N}     ||= NDATA;
 
     # Convert the dates into a range.
     my $date1 = date($args{start});
@@ -109,6 +118,11 @@ The times must be given as B<HH-MM-SS> strings.
 
 sub time_ranger {
     my %args = @_;
+    # Set defaults.
+    $args{stamp} ||= 1;
+    $args{start} ||= '00:00:00';
+    $args{end}   ||= '';
+    $args{N}     ||= NDATA;
 
     # Split the :-separated times.
     my @start = split ':', $args{start};
@@ -172,6 +186,12 @@ arguments are all optional.  The defaults are:
 
 sub number_ranger {
     my %args = @_;
+    # Set defaults.
+    $args{start}  ||= 0;
+    $args{end}    ||= NDATA;
+    $args{prec}   ||= PREC;
+    $args{random} ||= 1;
+    $args{N}      ||= NDATA;
 
     # Bucket for our result list.
     my @results;
@@ -215,6 +235,11 @@ number of data-points arguments are all optional.  The defaults are:
 
 sub personify {
     my %args = @_;
+    # Set defaults.
+    $args{gender}  ||= 0;
+    $args{names}   ||= NDATA;
+    $args{country} ||= 2;
+    $args{N}       ||= NDATA;
 
     # Bucket for our result list.
     my @results;
@@ -312,6 +337,11 @@ Given the type, this function accepts the following:
 
 sub distributor {
     my %args = @_;
+    # Set defaults.
+    $args{type} ||= 'u';
+    $args{prec} ||= PREC;
+    $args{dof}  ||= DOF;
+    $args{N}    ||= NDATA;
 
     # Separate numerator/denominator for F degs-of-freedm.
     my $e = 1;
@@ -396,6 +426,10 @@ C<rndpassword> program, but allows you to generate a finite number of results.
 
 sub stringer {
     my %args = @_;
+    # Set defaults.
+    $args{length} ||= SIZE;
+    $args{type}   ||= 'default';
+    $args{N}      ||= NDATA;
 
     # Declare a pw instance.
     my $sp = Data::SimplePassword->new;
@@ -450,6 +484,9 @@ The defaults are:
 
 sub imager {
     my %args = @_;
+    # Set defaults.
+    $args{size} ||= SIZE;
+    $args{N}    ||= NDATA;
 
     # Declare a bucket for our results.
     my @results = ();
