@@ -30,7 +30,7 @@ Mock::Populate - Mock data creation
   $nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, $n);
   $people = Mock::Populate::personify('b', 2, 'us', 0, $n);
   $email  = Mock::Populate::emailify(@$people);
-  $stats  = Mock::Populate::stats_distrib('u', 4, 2, $n);
+  $stats  = Mock::Populate::distributor('u', 4, 2, $n);
   $shuff  = Mock::Populate::shuffler($n, qw(foo bar baz goo ber buz));
   $string = Mock::Populate::stringer(32, 'base64', $n);
   $imgs   = Mock::Populate::imager(10, $n);
@@ -298,9 +298,9 @@ sub emailify {
     return \@results;
 }
 
-=head2 stats_distrib()
+=head2 distributor()
 
-  @results = stats_distrib($type, $prec, $dof, $n)
+  @results = distributor($type, $prec, $dof, $n)
 
 Return a list of B<$n> distribution values.  The type, precision,
 degrees-of-freedom and desired number of data-points arguments are optional.
@@ -330,7 +330,7 @@ Given the type, this function accepts the following:
 
 =cut
 
-sub stats_distrib {
+sub distributor {
 
     # Get type of distribution.
     my $p = defined $_[0] ? shift : 'u';
