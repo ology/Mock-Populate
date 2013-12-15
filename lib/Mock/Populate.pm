@@ -14,8 +14,9 @@ use Image::Dot;
 use List::Util qw(shuffle);
 use Mock::Person;
 use Statistics::Distributions;
-use Time::Local;
+use Text::Password::Pronounceable;
 use Text::Unidecode;
+use Time::Local;
 
 =head1 NAME
 
@@ -415,6 +416,7 @@ C<rndpassword> program, but allows you to generate a finite number of results.
   simple    xek4imbjcmctsxd3  # 0..9 a..z
   hex       89504e470d0a1a0a  # 0..9 a..f
   alpha     femvifzscyvvlwvn  # a..z
+  pronoun   werbucedicaremoz  # a..z but pronounceable!
   digit     7563919623282657  # 0..9
   binary    1001011110000101
   morse     -.--...-.--.-..-
