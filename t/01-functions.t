@@ -11,7 +11,7 @@ my $x = Mock::Populate::number_ranger();
 is @$x, 10, 'number_ranger';
 $x = Mock::Populate::personify();
 is @$x, 10, 'personify';
-$x = Mock::Populate::emailify();
+$x = Mock::Populate::emailify(@$x);
 is @$x, 10, 'emailify';
 $x = Mock::Populate::stats_distrib();
 is @$x, 10, 'stats_distrib';
