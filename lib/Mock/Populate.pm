@@ -28,8 +28,8 @@ Mock::Populate - Mock data creation
   $dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', $n);
   $times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', $n);
   $nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, $n);
-  ($people, $email) = Mock::Populate::personify('b', 2, 'us', 1, $n);
-  ($people, undef) = Mock::Populate::personify('b', 2, 'us', 0, $n);
+  $people = Mock::Populate::personify('b', 2, 'us', 0, $n);
+  $email  = Mock::Populate::emailify(@$people);
   $stats  = Mock::Populate::stats_distrib('u', 4, 2, $n);
   $shuff  = Mock::Populate::shuffler($n, qw(foo bar baz goo ber buz));
   $string = Mock::Populate::stringer(32, 'base64', $n);
@@ -235,8 +235,6 @@ sub personify {
     my $d = defined $_[0] ? shift : 2;
     # Get the country to use.
     my $c = defined $_[0] ? shift : 'us';
-    # Should an email column be generated?
-    my $e = defined $_[0] ? shift : 0;
     # Get desired number of data-points.
     my $n = defined $_[0] ? shift : 9;
 
@@ -264,19 +262,39 @@ sub personify {
         }
     }
 
+    return \@results;
+}
+
+=head2 emailify()
+
+  $results = emailify(@people)
+
+Return a list of B<$n> email addresses based on the gien names.
+
+=cut
+
+sub emailify {
+    my @people = @_;
+
+    # Bucket for our results.
+    my @results = ();
+
     # Generate email addresses if requested.
     # first.last @example.{com,net,org,edu}
-    my @email = ();
     my @tld = qw( com net org edu );
-    if ($e) {
-        for my $p (@results) {
-            my @name = split / /, $p;
-            $_ = unidecode($_) for @name;
-            push @email, $name[0] . '.' . $name[-1] . '@example.' . $tld[rand @tld];
-        }
+
+    for my $p (@people) {
+        # Break up the name.
+        my @name = split / /, $p;
+
+        # Turn any unicode characters into something ascii.
+        $_ = unidecode($_) for @name;
+
+        # Added a quasi random email for the person.
+        push @results, $name[0] . '.' . $name[-1] . '@example.' . $tld[rand @tld];
     }
 
-    return \@results, \@email;
+    return \@results;
 }
 
 =head2 stats_distrib()
