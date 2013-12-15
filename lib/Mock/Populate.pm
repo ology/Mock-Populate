@@ -291,7 +291,7 @@ sub emailify {
         $_ = unidecode($_) for @name;
 
         # Added a quasi random email for the person.
-        push @results, $name[0] . '.' . $name[-1] . '@example.' . $tld[rand @tld];
+        push @results, lc($name[0]) . '.' . lc($name[-1]) . '@example.' . $tld[rand @tld];
     }
 
     return \@results;
