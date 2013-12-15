@@ -32,8 +32,9 @@ Mock::Populate - Mock data creation
   use Mock::Populate;
   # * Call each function below with Mock::Populate::foo(...
   $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
-  $money  = number_ranger(start =>1000, end => 5000, prec => 2, random => 1, N => $n);
-  $dates  = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
+  $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1, N => $n);
+  $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
+  $modify = date_modifier($offset, @$create);
   $times  = time_ranger(stamp => 1, start => '01:02:03' end =>'23:59:59', N => $n);
   $people = personify(gender => 'b', names => 2, country => 'us', N => $n);
   $email  = emailify(@$people);
@@ -41,7 +42,7 @@ Mock::Populate - Mock data creation
   $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
   $string = stringer(length => 32, type => 'base64', N => $n);
   $imgs   = imager(size => 10, N => $n);  # * size is not pixel dimension
-  $coll   = collate($ids, $people, $email, $dates, $times);
+  $coll   = collate($ids, $people, $email, $create, $times, $modify, $times);
 
 =head1 DESCRIPTION
 
@@ -96,6 +97,37 @@ sub date_ranger {
 
         # Save the stringified start date plus the offest.
         my $date = $date1 + $offset;
+        push @results, "$date";
+    }
+
+    return \@results;
+}
+
+=head2 data_modifier()
+
+  $modify = date_modifier($offset, @$dates);
+
+Returns a new list of random future dates, based on the offset, and respective
+to each given date.
+
+=cut
+
+sub date_modifier {
+    # Get the number of days in the future and the date list.
+    my ($offset, @dates) = @_;
+
+    # Bucket for our result list.
+    my @results;
+
+    for my $date (@dates) {
+        # Cast the current date string as an object.
+        my $current = date($date);
+
+        # Get a random number of days in the future.
+        my $m = int(rand $offset);
+
+        # Save the stringified date plus the offest.
+        $date = $current + $m;
         push @results, "$date";
     }
 
