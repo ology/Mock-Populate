@@ -30,21 +30,25 @@ Mock::Populate - Mock data creation
 =head1 SYNOPSIS
 
   use Mock::Populate;
-  $ids    = Mock::Populate::number_ranger(1, 1001, 0, 0, $n);
-  $dates  = Mock::Populate::date_ranger('1900-01-01', '2020-12-31', $n);
-  $times  = Mock::Populate::time_ranger(1, '01:02:03' '23:59:59', $n);
-  $nums   = Mock::Populate::number_ranger(1000, 5000, 2, 1, $n);
-  $people = Mock::Populate::personify('b', 2, 'us', 0, $n);
-  $email  = Mock::Populate::emailify(@$people);
-  $stats  = Mock::Populate::distributor('u', 4, 2, $n);
-  $shuff  = Mock::Populate::shuffler($n, qw(foo bar baz goo ber buz));
-  $string = Mock::Populate::stringer(32, 'base64', $n);
-  $imgs   = Mock::Populate::imager(10, $n);
-  $collated = Mock::Populate::collate($people, $email, $dates, $times);
+  # * Call each function below with Mock::Populate::foo(...
+  $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
+  $money  = number_ranger(start =>1000, end => 5000, prec => 2, random => 1, N => $n);
+  $dates  = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
+  $times  = time_ranger(stamp => 1, start => '01:02:03' end =>'23:59:59', N => $n);
+  $people = personify(gender => 'b', names => 2, country => 'us', N => $n);
+  $email  = emailify(@$people);
+  $shuff  = shuffler($n, qw(foo bar baz goo ber buz));
+  $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
+  $string = stringer(length => 32, type => 'base64', N => $n);
+  $imgs   = imager(size => 10, N => $n);  # * size is not pixel dimension
+  $coll   = collate($ids, $people, $email, $dates, $times);
 
 =head1 DESCRIPTION
 
 This is a set of functions for mock data creation.
+
+No functions are exported, so use the entire C<Mock::Populate::*> namespace when
+calling each.
 
 Each function produces a list of elements that can be used as database columns.
 The handy C<collate()> function takes these columns and returns a list of
@@ -248,6 +252,7 @@ sub personify {
     for my $i (0 .. $args{N}) {
         # Get our random person.
         my $p = '';
+        # If gender is 'both' alternate male-female, or just female.
         if (($args{gender} eq 'b' && $i % 2) || $args{gender} eq 'f') {
             $p = Mock::Person::name(sex => 'female', country => $args{country});
         }
