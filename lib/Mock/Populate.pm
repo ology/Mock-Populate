@@ -269,7 +269,7 @@ sub personify {
 
   $results = emailify(@people)
 
-Return a list of B<$n> email addresses based on the gien names.
+Return a list of B<$n> email addresses based on a list of given names.
 
 =cut
 
