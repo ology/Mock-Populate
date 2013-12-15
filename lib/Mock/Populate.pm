@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.0701';
+our $VERSION = '0.0710';
 
 use strict;
 use warnings;
@@ -445,6 +445,7 @@ sub stringer {
         binary  => [ 0, 1 ],
         morse   => [ qw(. -) ],
         hex     => [ 0..9, 'a'..'f' ],
+        pronoun => [],
     };
     # Set the chars based on the given type.
     $sp->chars( @{ $chars->{$type} } );
@@ -454,7 +455,12 @@ sub stringer {
 
     # Roll!
     for(0 .. $n) {
-        push @results, $sp->make_password($length);
+        if ($type eq 'pronoun') {
+            push @results, Text::Password::Pronounceable->generate($length, $length);
+        }
+        else {
+            push @results, $sp->make_password($length);
+        }
     }
 
     return \@results;
