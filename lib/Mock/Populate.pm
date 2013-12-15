@@ -124,7 +124,7 @@ sub date_modifier {
         my $current = date($date);
 
         # Get a random number of days in the future.
-        my $m = int(rand $offset);
+        my $m = int(rand $offset) + 1;
 
         # Save the stringified date plus the offest.
         $date = $current + $m;
