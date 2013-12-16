@@ -103,7 +103,7 @@ sub date_ranger {
     return \@results;
 }
 
-=head2 data_modifier()
+=head2 date_modifier()
 
   $modify = date_modifier($offset, @$dates);
 
