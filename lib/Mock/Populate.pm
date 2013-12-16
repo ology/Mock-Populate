@@ -609,20 +609,20 @@ L<Data::Random> does nearly the exact same thing. Whoops!
 
 Implement dirty-data randomizing.
 
-  iso-8859-1,
-  utf-16,
-  windows codepage,
+  unexpected formats: iso-8859-1, utf-16, windows codepage,
   BOM (byte order marker),
   broken unicode,
   garbled binary,
-  commas or $ in currencies ("format fuckups"),
-  truncated fields,
-  bad JSON,
   \r and \n variations,
+  commas or $ in currencies ("format fuckups"),
+  bad JSON,
   broken XML,
   bad ' and " in CSV,
   statistical outliers,
   time-series drops and spikes,
+  duplicate data,
+  missing data,
+  truncated data,
 
 =cut
 
