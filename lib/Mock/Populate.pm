@@ -451,10 +451,11 @@ C<rndpassword> program, but allows you to generate a finite number of results.
   default   0xaVbi3O2Lz8E69s  # 0..9 a..z A..Z
   ascii     n:.T<Gr!,e*[k=eu  # visible ascii
   base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z / +
+  path      PC2gb5/8.fBDuw.d  # 0..9 a..z A..Z / .
   simple    xek4imbjcmctsxd3  # 0..9 a..z
   hex       89504e470d0a1a0a  # 0..9 a..f
   alpha     femvifzscyvvlwvn  # a..z
-  pronoun   werbucedicaremoz  # a..z but pronounceable!
+  pron      werbucedicaremoz  # a..z but pronounceable!
   digit     7563919623282657  # 0..9
   binary    1001011110000101
   morse     -.--...-.--.-..-
@@ -476,14 +477,14 @@ sub stringer {
         default => [ 0..9, 'a'..'z', 'A'..'Z' ],
         ascii   => [ map { sprintf "%c", $_ } 33 .. 126 ],
         base64  => [ 0..9, 'a'..'z', 'A'..'Z', qw(+ /) ],
-        b64     => [ 0..9, 'a'..'z', 'A'..'Z', qw(+ /) ],
+        path    => [ 0..9, 'a' .. 'z', 'A' .. 'Z', qw(. /) ],
         simple  => [ 0..9, 'a'..'z' ],
         alpha   => [ 'a'..'z' ],
         digit   => [ 0..9 ],
         binary  => [ 0, 1 ],
         morse   => [ qw(. -) ],
         hex     => [ 0..9, 'a'..'f' ],
-        pronoun => [],
+        pron    => [],
     };
     # Set the chars based on the given type.
     $sp->chars( @{ $chars->{$args{type}} } );
@@ -493,7 +494,7 @@ sub stringer {
 
     # Roll!
     for(0 .. $args{N}) {
-        if ($args{type} eq 'pronoun') {
+        if ($args{type} eq 'pron') {
             push @results, Text::Password::Pronounceable->generate(
                 $args{length}, $args{length});
         }
