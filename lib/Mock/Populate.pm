@@ -435,7 +435,7 @@ sub shuffler {
 
   $results = stringer(type => $type, length => $length, N => $n)
 
-Return a shuffled list of N items.  The items and number of data-points
+Return a list of N strings.  The strings and number of data-points
 arguments are optional.  The defaults are:
 
   type: default
