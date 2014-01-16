@@ -36,12 +36,12 @@ Mock::Populate - Mock data creation
   $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
   $modify = date_modifier($offset, @$create);
   $times  = time_ranger(stamp => 1, start => '01:02:03' end =>'23:59:59', N => $n);
-  $people = personify(gender => 'b', names => 2, country => 'us', N => $n);
-  $email  = emailify(@$people);
+  $people = name_ranger(gender => 'b', names => 2, country => 'us', N => $n);
+  $email  = email_ranger(@$people);
   $shuff  = shuffler($n, qw(foo bar baz goo ber buz));
   $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
-  $string = stringer(length => 32, type => 'base64', N => $n);
-  $imgs   = imager(size => 10, N => $n);  # * size is not pixel dimension
+  $string = string_ranger(length => 32, type => 'base64', N => $n);
+  $imgs   = image_ranger(size => 10, N => $n);  # *size is density, not pixel dimension
   $coll   = collate($ids, $people, $email, $create, $times, $modify, $times);
 
 =head1 DESCRIPTION
@@ -253,28 +253,28 @@ sub number_ranger {
     return \@results;
 }
 
-=head2 personify()
+=head2 name_ranger()
 
-  $results = personify(
+  $results = name_ranger(
     gender => $gender, names => $names, country => $country,
     N => $n)
 
-Return a list of N random names.  The gender, number of names and desired
-number of data-points arguments are all optional.  The defaults are:
+Return a list of N random person names.  The gender, number of names and
+desired number of data-points arguments are all optional.  The defaults are:
 
-  gender: both
-  names: 2
+  gender: b (options: both, female, male)
+  names: 2 (first, last)
   country: us
   N: 10
 
 =cut
 
-sub personify {
+sub name_ranger {
     my %args = @_;
     # Set defaults.
     $args{gender}  ||= 0;
-    $args{names}   ||= NDATA;
-    $args{country} ||= 2;
+    $args{names}   ||= 2;
+    $args{country} ||= 'us';
     $args{N}       ||= NDATA;
 
     # Bucket for our result list.
@@ -284,7 +284,8 @@ sub personify {
     for my $i (0 .. $args{N}) {
         # Get our random person.
         my $p = '';
-        # If gender is 'both' alternate male-female, or just female.
+        # If gender is 'both' alternate male-female.
+        # Or if gender is not 'male' then ...female!
         if (($args{gender} eq 'b' && $i % 2) || $args{gender} eq 'f') {
             $p = Mock::Person::name(sex => 'female', country => $args{country});
         }
@@ -308,22 +309,22 @@ sub personify {
     return \@results;
 }
 
-=head2 emailify()
+=head2 email_modifier()
 
-  $results = emailify(@people)
+  $results = email_modifier(@people)
+  # first.last@example.{com,net,org,edu}
 
 Return a list of N email addresses based on a list of given names.
 
 =cut
 
-sub emailify {
+sub email_modifier {
     my @people = @_;
 
     # Bucket for our results.
     my @results = ();
 
     # Generate email addresses if requested.
-    # first.last @example.{com,net,org,edu}
     my @tld = qw( com net org edu );
 
     for my $p (@people) {
@@ -333,9 +334,11 @@ sub emailify {
         # Turn any unicode characters into something ascii.
         $_ = unidecode($_) for @name;
 
-        # Added a quasi random email for the person.
-        push @results, (@name > 1 ? lc($name[0]) . '.' : '')
-            . lc($name[-1]) . '@example.' . $tld[rand @tld];
+        # Add an email address for the person.
+        my $email = lc($name[0]);
+        $email .= '.'. lc($name[-1]) if @name > 1;
+        $email .= '@example.' . $tld[rand @tld];
+        push @results, $email;
     }
 
     return \@results;
@@ -431,9 +434,9 @@ sub shuffler {
     return [ shuffle(@items) ];
 }
 
-=head2 stringer()
+=head2 string_ranger()
 
-  $results = stringer(type => $type, length => $length, N => $n)
+  $results = string_ranger(type => $type, length => $length, N => $n)
 
 Return a list of N strings.  The strings and number of data-points
 arguments are optional.  The defaults are:
@@ -447,22 +450,23 @@ C<rndpassword> program, but allows you to generate a finite number of results.
 
 =head3 Types
 
-  Types     output sample
-  default   0xaVbi3O2Lz8E69s  # 0..9 a..z A..Z
-  ascii     n:.T<Gr!,e*[k=eu  # visible ascii
-  base64    PC2gb5/8+fBDuw+d  # 0..9 a..z A..Z / +
-  path      PC2gb5/8.fBDuw.d  # 0..9 a..z A..Z / .
-  simple    xek4imbjcmctsxd3  # 0..9 a..z
-  hex       89504e470d0a1a0a  # 0..9 a..f
-  alpha     femvifzscyvvlwvn  # a..z
-  pron      werbucedicaremoz  # a..z but pronounceable!
-  digit     7563919623282657  # 0..9
+  Types     Output sample     Character set
+  ___________________________________________________
+  default   0xaVbi3O2Lz8E69s  0..9 a..z A..Z
+  ascii     n:.T<Gr!,e*[k=eu  visible ascii
+  base64    PC2gb5/8+fBDuw+d  0..9 a..z A..Z / +
+  path      PC2gb5/8.fBDuw.d  0..9 a..z A..Z / .
+  simple    xek4imbjcmctsxd3  0..9 a..z
+  hex       89504e470d0a1a0a  0..9 a..f
+  alpha     femvifzscyvvlwvn  a..z
+  pron      werbucedicaremoz  a..z but pronounceable!
+  digit     7563919623282657  0..9
   binary    1001011110000101
   morse     -.--...-.--.-..-
 
 =cut
 
-sub stringer {
+sub string_ranger {
     my %args = @_;
     # Set defaults.
     $args{length} ||= SIZE;
@@ -506,9 +510,9 @@ sub stringer {
     return \@results;
 }
 
-=head2 imager()
+=head2 image_ranger()
 
-  $results = imager(size => $size, N => $n)
+  $results = image_ranger(size => $size, N => $n)
 
 Return a list of N 1x1 pixel images of varying byte sizes (not image dimension).
 The byte size and number of data-points are both optional.
@@ -520,7 +524,7 @@ The defaults are:
 
 =cut
 
-sub imager {
+sub image_ranger {
     my %args = @_;
     # Set defaults.
     $args{size} ||= SIZE;
