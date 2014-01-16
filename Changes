@@ -1,7 +1,8 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
-    - Improved docs.
+    - Improved subroutine names.
+    - Improved docs & comments.
     - Added path string type.
 
 0.08      2013-12-16 01:12:33 America/Los_Angeles
