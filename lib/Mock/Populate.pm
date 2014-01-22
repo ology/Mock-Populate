@@ -2,12 +2,12 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.0801';
+our $VERSION = '0.0802';
 
 use strict;
 use warnings;
 
-use constant NDATA => 9;
+use constant NDATA => 10;
 use constant PREC  => 2;
 use constant DOF   => 2;
 use constant SIZE  => 8;
@@ -91,7 +91,7 @@ sub date_ranger {
     # Bucket for our result list.
     my @results;
 
-    for(0 .. $args{N}) {
+    for(1 .. $args{N}) {
         # Get a random number of days in the range.
         $offset = int(rand $range->length);
 
@@ -178,7 +178,7 @@ sub time_ranger {
     my @results;
 
     # Generate a time, N times.
-    for(0 .. $args{N}) {
+    for(1 .. $args{N}) {
         # Get a random number of seconds in the range.
         $offset = int(rand $range);
 
@@ -235,7 +235,7 @@ sub number_ranger {
     # Do we want random numbers?
     if ($args{random}) {
         # Roll!
-        for(0 .. $args{N}) {
+        for(1 .. $args{N}) {
             # Get our random candidate.
             my $x = rand($args{end});
             # Make sure it is above the start value.
@@ -391,7 +391,7 @@ sub distributor {
     my @results;
 
     # Roll!
-    for(0 .. $args{N}) {
+    for(1 .. $args{N}) {
         # Select distribution.
         if ($args{type} eq 'c') {
             # Chi-squared
@@ -497,7 +497,7 @@ sub string_ranger {
     my @results = ();
 
     # Roll!
-    for(0 .. $args{N}) {
+    for(1 .. $args{N}) {
         if ($args{type} eq 'pron') {
             push @results, Text::Password::Pronounceable->generate(
                 $args{length}, $args{length});
@@ -542,7 +542,7 @@ sub image_ranger {
     (my $tail = $img) =~ s/^.*?(IEND.*)$/$1/ms;
     $img =~ s/^.*?IDAT(.*?)IEND.*$/$1/ms;
 
-    for (0 .. $args{N}) {
+    for (1 .. $args{N}) {
         # Increase the byte size (not dimension).
         my $i = $head . ($img x int(rand $args{size})) . $tail;
         #warn "L: ",length($i), "\n";
