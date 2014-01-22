@@ -4,6 +4,7 @@ Revision history for Mock::Populate
     - Improved subroutine names.
     - Improved docs & comments.
     - Added path string type.
+    - Fixed crucial "off by one" type error.
 
 0.08      2013-12-16 01:12:33 America/Los_Angeles
     - Improved documentation.
