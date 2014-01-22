@@ -281,7 +281,7 @@ sub name_ranger {
     my @results;
 
     # Roll!
-    for my $i (0 .. $args{N}) {
+    for my $i (1 .. $args{N}) {
         # Get our random person.
         my $p = '';
         # If gender is 'both' alternate male-female.
