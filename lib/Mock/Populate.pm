@@ -182,7 +182,7 @@ sub time_ranger {
         if ($args{stamp}) {
             # In HH:MM::SS format.
             my $time = scalar localtime($start_time + $offset);
-            push @results, (split / /, $time)[3];
+            push @results, (split / /, $time)[4];
         }
         else {
             # As a number of seconds from the "epoc."
