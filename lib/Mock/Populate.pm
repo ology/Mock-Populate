@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.09';
+our $VERSION = '0.0901';
 
 use strict;
 use warnings;
@@ -22,10 +22,6 @@ use Statistics::Distributions;
 use Text::Password::Pronounceable;
 use Text::Unidecode;
 use Time::Local;
-
-=head1 NAME
-
-Mock::Populate - Mock data creation
 
 =head1 SYNOPSIS
 
