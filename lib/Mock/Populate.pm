@@ -333,7 +333,7 @@ sub email_modifier {
         # Add an email address for the person.
         my $email = lc($name[0]);
         $email .= '.'. lc($name[-1]) if @name > 1;
-        $email .= '@example.' . $tld[rand @tld];
+        $email .= '@example.' . $tld[int rand @tld];
         push @results, $email;
     }
 
