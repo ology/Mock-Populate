@@ -214,7 +214,7 @@ sub _now { # Return hour, minute, second.
   );
 
 Return a list of B<N> random numbers within a range.  The B<start>, B<end>,
-B<prec>ision, whether we want random or sequential numbers, and the desired
+B<prec>ision, whether we want B<random> or sequential numbers, and the desired
 number of data-points are all optional.  The defaults are:
 
   start:     0
@@ -366,13 +366,13 @@ sub email_modifier {
   );
 
 Return a list of B<N> distribution values.  The B<type>, B<prec>ision,
-degrees-of-freedom, and desired number of data-points are optional.  The
-defaults are:
+degrees-of-freedom (B<dof>), and desired number of data-points are optional.
+The defaults are:
 
-  type:               u (normal)
-  precision:          2
-  degrees-of-freedom: 2
-  N:                  10
+  type:      u (normal)
+  precision: 2
+  dof:       2
+  N:         10
 
 This routine uses L<Statistics::Distributions>.
 
@@ -433,8 +433,8 @@ sub distributor {
 Return a shuffled list of B<$n> items.  The B<items> and number of data-points
 are optional.  The defaults are:
 
-  n: 10
   items: a b c d e f g h i j
+  n:     10
 
 =cut
 
@@ -535,8 +535,8 @@ dimension).  The byte B<size> and number of data-points are both optional.
 
 The defaults are:
 
-  N:    10
   size: 8
+  N:    10
 
 This routine uses L<Image::Dot>.
 
