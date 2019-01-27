@@ -428,13 +428,13 @@ sub distributor {
 
 =head2 shuffler()
 
-  $results = shuffler($n, @items)
+  $results = shuffler($N, @items)
 
-Return a shuffled list of B<$n> items.  The B<items> and number of data-points
+Return a shuffled list of B<N> B<items>.  The items and number of data-points
 are optional.  The defaults are:
 
   items: a b c d e f g h i j
-  n:     10
+  N:     10
 
 =cut
 
