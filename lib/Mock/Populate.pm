@@ -63,7 +63,7 @@ be directly inserted into your favorite database, with your favorite perl ORM.
 Return a list of B<N> random dates within a range.  The B<start> and B<end>
 dates, and desired number of data-points are all optional.  The defaults are:
 
-  start: 2000-01-01
+  start: 1970-01-01
   end:   today (computed if not given)
   N:     10
 
@@ -74,7 +74,7 @@ The dates must be given as C<YYYY-MM-DD> strings.
 sub date_ranger {
     my %args = @_;
     # Set defaults.
-    $args{start} ||= '2001-01-01';
+    $args{start} ||= '1970-01-01';
     $args{end}   ||= today();
     $args{N}     ||= NDATA;
 
