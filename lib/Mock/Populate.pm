@@ -516,7 +516,8 @@ sub string_ranger {
     for(1 .. $args{N}) {
         if ($args{type} eq 'pron') {
             push @results, Text::Password::Pronounceable->generate(
-                $args{length}, $args{length});
+                $args{length}, $args{length}
+            );
         }
         else {
             push @results, $sp->make_password($args{length});
