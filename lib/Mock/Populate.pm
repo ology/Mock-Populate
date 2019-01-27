@@ -103,14 +103,14 @@ sub date_ranger {
 
 =head2 date_modifier()
 
-  $modify = date_modifier($offset, @$dates);
+  $results = date_modifier($offset, @$dates);
 
 Return a new list of random dates, based on the offset.
 
 =cut
 
 sub date_modifier {
-    # Get the number of days in the and the date list.
+    # Get the number of days and the date list.
     my ($offset, @dates) = @_;
 
     # Bucket for our result list.
