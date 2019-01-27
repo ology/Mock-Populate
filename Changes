@@ -1,6 +1,7 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
+    - Fix the date_ranger() start default.
 
 0.1401 2019-01-27 12:14:05
     - Fix the wording for the number_ranger() doc.
