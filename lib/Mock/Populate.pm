@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.1100';
+our $VERSION = '0.1200';
 
 use strict;
 use warnings;
@@ -36,7 +36,7 @@ use Time::Local;
   my $times  = time_ranger(stamp => 1, start => '01:02:03', end =>'23:59:59', N => $n);
   my $people = name_ranger(gender => 'b', names => 2, country => 'us', N => $n);
   my $email  = email_ranger(@$people);
-  my $shuff  = shuffler($n, qw(foo bar baz goo ber buz));
+  my $shuff  = shuffler(qw(foo bar baz goo ber buz));
   my $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
   my $string = string_ranger(length => 32, type => 'base64', N => $n);
   my $imgs   = image_ranger(size => 10, N => $n);  # *size is density, not pixel dimension
@@ -428,20 +428,16 @@ sub distributor {
 
 =head2 shuffler()
 
-  $results = shuffler($N, @items)
+  $results = shuffler(@items)
 
-Return a shuffled list of B<N> B<items>.  The items and number of data-points
-are optional.  The defaults are:
+Return a shuffled list of B<items>.  The items and number of data-points are
+optional.  The defaults are:
 
   items: a b c d e f g h i j
-  N:     10
 
 =cut
 
 sub shuffler {
-    # Get the desired number of data-points.
-    my $n = defined $_[0] ? shift : NDATA;
-    # Get the items to shuffle.
     my @items = @_ ? @_ : ('a' .. 'j');
     return [ shuffle(@items) ];
 }
