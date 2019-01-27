@@ -405,23 +405,28 @@ sub distributor {
 
     # Roll!
     for(1 .. $args{N}) {
+        my $x;
+
         # Select distribution.
         if ($args{type} eq 'c') {
             # Chi-squared
-            push @results, Statistics::Distributions::chisqrdistr($args{dof}, rand);
+            $x = Statistics::Distributions::chisqrdistr($args{dof}, rand);
         }
         elsif ($args{type} eq 's') {
             # Student's T
-            push @results, Statistics::Distributions::tdistr($args{dof}, rand);
+            $x = Statistics::Distributions::tdistr($args{dof}, rand);
         }
         elsif ($args{type} eq 'f') {
             # F distribution
-            push @results, Statistics::Distributions::fdistr($args{dof}, $e, rand);
+            $x = Statistics::Distributions::fdistr($args{dof}, $e, rand);
         }
         else {
             # Normal
-            push @results, Statistics::Distributions::udistr(rand);
+            $x = Statistics::Distributions::udistr(rand);
         }
+
+        $x = sprintf '%.*f', $args{prec}, $x;
+        push @results, $x;
     }
 
     return \@results;
