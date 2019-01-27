@@ -1,6 +1,10 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
+    - Improved documentation.
+    - Correct the default N for shuffler().
+
+0.1004 2019-01-27 09:50:13
     - Improved documentation yet again!
 
 0.1003 2019-01-27 09:38:33
