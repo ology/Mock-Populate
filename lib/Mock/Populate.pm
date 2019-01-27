@@ -586,9 +586,6 @@ sub collate {
     # Accept any number of columns.
     my @columns = @_;
 
-    # Make a copy of the columns to peel off.
-    my @lists = @columns;
-
     # Declare the bucket for our arrayrefs.
     my @results = ();
 
