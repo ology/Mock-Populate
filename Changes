@@ -1,17 +1,18 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
-    - Fix the date_ranger() start default.
+    - Fixed the date_ranger() start default.
+    - Improved documentation slightly.
 
 0.1401 2019-01-27 12:14:05
-    - Fix the wording for the number_ranger() doc.
+    - Fixed the wording for the number_ranger() doc.
 
 0.1400 2019-01-27 11:56:53
-    - Honor the precision argument to number_ranger() and distributor().
-    - Use //= defined-or instead of ||= for arguments that could be 0.
+    - Honored the precision argument to number_ranger() and distributor().
+    - Used //= defined-or instead of ||= for arguments that could be 0.
 
 0.1300 2019-01-27 11:12:53
-    - Allow 0 to be set for the time-stamp.
+    - Allowed 0 to be set for the time-stamp.
 
 0.1201 2019-01-27 10:44:52
     - Improved the documentation ever so slightly.
