@@ -133,8 +133,11 @@ sub date_modifier {
 =head2 time_ranger()
 
   $results = time_ranger(
-    stamp => $stamp, start => $start, end => $end,
-    N => $n);
+    stamp => $stamp,
+    start => $start,
+    end => $end,
+    N => $n,
+  );
 
 Return a list of N random times within a range.  The start and end times and
 desired number of data-points arguments are all optional.  The defaults are:
@@ -182,7 +185,7 @@ sub time_ranger {
         if ($args{stamp}) {
             # In HH:MM::SS format.
             my $time = scalar localtime($start_time + $offset);
-            push @results, (split / /, $time)[4];
+            push @results, (split / /, $time)[3];
         }
         else {
             # As a number of seconds from the "epoc."
