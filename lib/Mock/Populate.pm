@@ -58,14 +58,14 @@ be directly inserted into your favorite database, with your favorite perl ORM.
 
   $results = date_ranger(start => $start, end => $end, N => $n);
 
-Return a list of N random dates within a range.  The start and end dates and
-desired number of data-points arguments are all optional.  The defaults are:
+Return a list of B<N> random dates within a range.  The start and end dates, and
+desired number of data-points are all optional.  The defaults are:
 
   start: 2000-01-01
   end: today (computed if not given)
   N: 10
 
-The dates must be given as B<YYYY-MM-DD> strings.
+The dates must be given as C<YYYY-MM-DD> strings.
 
 =cut
 
@@ -103,8 +103,7 @@ sub date_ranger {
 
   $modify = date_modifier($offset, @$dates);
 
-Returns a new list of random future dates, based on the offset, and respective
-to each given date.
+Return a new list of random future dates, based on the offset.
 
 =cut
 
@@ -135,19 +134,19 @@ sub date_modifier {
   $results = time_ranger(
     stamp => $stamp,
     start => $start,
-    end => $end,
-    N => $n,
+    end   => $end,
+    N     => $n,
   );
 
-Return a list of N random times within a range.  The start and end times and
-desired number of data-points arguments are all optional.  The defaults are:
+Return a list of B<N> random times within a range.  The start and end times, and
+desired number of data-points are all optional.  The defaults are:
 
   stamp: 1 (boolean)
   start: 00-00-00
   end: now (computed if not given)
   N: 10
 
-The times must be given as B<HH-MM-SS> strings.
+The times must be given as C<HH-MM-SS> strings.
 
 =cut
 
@@ -203,13 +202,16 @@ sub _now { # Return hour, minute, second.
 =head2 number_ranger()
 
   $results = number_ranger(
-    start => $start, end => $end,
-    prec => $prec, random => $random,
-    N => $n)
+    start  => $start,
+    end    => $end,
+    prec   => $prec,
+    random => $random,
+    N      => $n
+  );
 
-Return a list of N random numbers within a range.  The start, end, precision,
-whether we want random or sequential numbers and desired number of data-points
-arguments are all optional.  The defaults are:
+Return a list of B<N> random numbers within a range.  The start, end, precision,
+whether we want random or sequential numbers, and the desired number of
+data-points are all optional.  The defaults are:
 
   start: 0
   end: 9
@@ -255,11 +257,14 @@ sub number_ranger {
 =head2 name_ranger()
 
   $results = name_ranger(
-    gender => $gender, names => $names, country => $country,
-    N => $n)
+    gender  => $gender,
+    names   => $names,
+    country => $country,
+    N       => $n,
+  );
 
-Return a list of N random person names.  The gender, number of names and
-desired number of data-points arguments are all optional.  The defaults are:
+Return a list of B<N> random person names.  The gender, number of names, and
+desired number of data-points are all optional.  The defaults are:
 
   gender: b (options: both, female, male)
   names: 2 (first, last)
@@ -313,7 +318,7 @@ sub name_ranger {
   $results = email_modifier(@people)
   # first.last@example.{com,net,org,edu}
 
-Return a list of N email addresses based on a list of given names.
+Return a list of email addresses based on a list of given names.
 
 =cut
 
@@ -345,10 +350,16 @@ sub email_modifier {
 
 =head2 distributor()
 
-  $results = distributor(type => $type, prec => $prec, dof => $dof, N => $n)
+  $results = distributor(
+    type => $type,
+    prec => $prec,
+    dof  => $dof,
+    N    => $n,
+  );
 
-Return a list of N distribution values.  The type, precision, degrees-of-freedom
-and desired number of data-points arguments are optional.  The defaults are:
+Return a list of B<N> distribution values.  The type, precision,
+degrees-of-freedom, and desired number of data-points are optional.
+The defaults are:
 
   type: u (normal)
   precision: 2
@@ -363,14 +374,6 @@ This function uses single letter identifiers:
   c: Chi-squared distribution
   s: Student's T distribution
   f: F distribution
-
-=head3 Degrees of freedom
-
-Given the type, this function accepts the following:
-
-  c: A single integer
-  s: A single integer
-  f: A fraction string of the form 'N/D' (default 2/1)
 
 =cut
 
@@ -418,7 +421,7 @@ sub distributor {
   $results = shuffler($n, @items)
 
 Return a shuffled list of B<$n> items.  The items and number of data-points
-arguments are optional.  The defaults are:
+are optional.  The defaults are:
 
   n: 10
   items: a b c d e f g h i j
@@ -435,10 +438,14 @@ sub shuffler {
 
 =head2 string_ranger()
 
-  $results = string_ranger(type => $type, length => $length, N => $n)
+  $results = string_ranger(
+    type   => $type,
+    length => $length,
+    N      => $n,
+  );
 
-Return a list of N strings.  The strings and number of data-points
-arguments are optional.  The defaults are:
+Return a list of B<N> strings.  The type, length, and number of data-points are
+optional.  The defaults are:
 
   type: default
   length: 8
@@ -460,8 +467,8 @@ C<rndpassword> program, but allows you to generate a finite number of results.
   alpha     femvifzscyvvlwvn  a..z
   pron      werbucedicaremoz  a..z but pronounceable!
   digit     7563919623282657  0..9
-  binary    1001011110000101
-  morse     -.--...-.--.-..-
+  binary    1001011110000101  01
+  morse     -.--...-.--.-..-  .-
 
 =cut
 
@@ -513,8 +520,8 @@ sub string_ranger {
 
   $results = image_ranger(size => $size, N => $n)
 
-Return a list of N 1x1 pixel images of varying byte sizes (not image dimension).
-The byte size and number of data-points are both optional.
+Return a list of B<N> 1x1 pixel images of varying byte sizes (not image
+dimension).  The byte size and number of data-points are both optional.
 
 The defaults are:
 
