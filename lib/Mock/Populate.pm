@@ -157,7 +157,7 @@ determines if a time-stamp or the number of seconds should be returned.
 sub time_ranger {
     my %args = @_;
     # Set defaults.
-    $args{stamp} ||= 1;
+    $args{stamp} //= 1;
     $args{start} ||= '00:00:00';
     $args{end}   ||= '';
     $args{N}     ||= NDATA;
