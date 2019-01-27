@@ -34,7 +34,7 @@ use Time::Local;
   my $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
   my $modify = date_modifier($offset, @$create);
   my $times  = time_ranger(stamp => 1, start => '01:02:03', end =>'23:59:59', N => $n);
-  my $people = name_ranger(gender => 'b', names => 2, country => 'us', N => $n);
+  my $people = name_ranger(gender => 'f', N => $n);
   my $email  = email_ranger(@$people);
   my $shuff  = shuffler(qw(foo bar baz goo ber buz));
   my $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
