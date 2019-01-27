@@ -3,6 +3,7 @@ Revision history for Mock::Populate
 {{$NEXT}}
     - Corrected the retrieved split chunk in time_ranger().
     - Added tests for checking result content.
+    - Improved documentation.
 
 0.0902 2016-03-07 20:44:19
     - Corrected the time string selection index.
