@@ -276,8 +276,8 @@ and desired number of data-points are all optional.  The defaults are:
   country: us
   N:       10
 
-This routine uses L<Mock::Person>.  Please see that module for the country
-identifiers to use.
+This routine uses L<Mock::Person> which currently, only supports C<us> and C<ru>
+countries.
 
 =cut
 
