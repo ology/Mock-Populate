@@ -52,7 +52,7 @@ calling each.
 Each function produces a list of elements that can be used as database columns.
 The handy C<collate()> function takes these columns and returns a list of
 (arrayref) rows.  This can then be processed into CSV, JSON, etc.  It can also
-be directly inserted into your favorite database, with your favorite perl ORM.
+be directly inserted into your favorite database.
 
 =head1 FUNCTIONS
 
