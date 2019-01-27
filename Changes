@@ -1,6 +1,10 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
+    - Improved documentation.
+    - Corrected the gender default in name_ranger().
+
+0.1000 2019-01-27 08:49:39
     - Corrected the retrieved split chunk in time_ranger().
     - Added tests for checking result content.
     - Improved documentation.
