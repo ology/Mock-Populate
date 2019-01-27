@@ -60,12 +60,12 @@ be directly inserted into your favorite database, with your favorite perl ORM.
 
   $results = date_ranger(start => $start, end => $end, N => $n);
 
-Return a list of B<N> random dates within a range.  The start and end dates, and
-desired number of data-points are all optional.  The defaults are:
+Return a list of B<N> random dates within a range.  The B<start> and B<end>
+dates, and desired number of data-points are all optional.  The defaults are:
 
   start: 2000-01-01
-  end: today (computed if not given)
-  N: 10
+  end:   today (computed if not given)
+  N:     10
 
 The dates must be given as C<YYYY-MM-DD> strings.
 
@@ -105,7 +105,7 @@ sub date_ranger {
 
   $results = date_modifier($offset, @$dates);
 
-Return a new list of random dates, based on the offset.
+Return a new list of random B<dates>, based on the B<offset>.
 
 =cut
 
@@ -140,8 +140,9 @@ sub date_modifier {
     N     => $n,
   );
 
-Return a list of B<N> random times within a range.  The stamp, start and end
-times, and desired number of data-points are all optional.  The defaults are:
+Return a list of B<N> random times within a range.  The B<stamp>, B<start> and
+B<end> times, and desired number of data-points are all optional.  The defaults
+are:
 
   stamp: 1 (boolean)
   start: 00-00-00
@@ -212,15 +213,15 @@ sub _now { # Return hour, minute, second.
     N      => $n
   );
 
-Return a list of B<N> random numbers within a range.  The start, end, precision,
-whether we want random or sequential numbers, and the desired number of
-data-points are all optional.  The defaults are:
+Return a list of B<N> random numbers within a range.  The B<start>, B<end>,
+B<prec>ision, whether we want random or sequential numbers, and the desired
+number of data-points are all optional.  The defaults are:
 
-  start: 0
-  end: 9
+  start:     0
+  end:       9
   precision: 2
-  random: 1
-  N: 10
+  random:    1
+  N:         10
 
 =cut
 
@@ -266,13 +267,13 @@ sub number_ranger {
     N       => $n,
   );
 
-Return a list of B<N> random person names.  The gender, number of names, and
-desired number of data-points are all optional.  The defaults are:
+Return a list of B<N> random person names.  The B<gender>, B<names>, B<country>
+and desired number of data-points are all optional.  The defaults are:
 
-  gender: b (options: both, female, male)
-  names: 2 (first, last)
+  gender:  b (options: both, female, male)
+  names:   2 (first, last)
   country: us
-  N: 10
+  N:       10
 
 This routine uses L<Mock::Person>.  Please see that module for the country
 identifiers to use.
@@ -324,8 +325,8 @@ sub name_ranger {
   $results = email_modifier(@people)
   # first.last@example.{com,net,org,edu}
 
-Return a list of email addresses based on a list of given names.  Any names with
-unicode are run through L<Text::Unidecode>.
+Return a list of email addresses based on a list of given people names.  Any
+names with unicode are run through L<Text::Unidecode>.
 
 =cut
 
@@ -364,14 +365,14 @@ sub email_modifier {
     N    => $n,
   );
 
-Return a list of B<N> distribution values.  The type, precision,
-degrees-of-freedom, and desired number of data-points are optional.
-The defaults are:
+Return a list of B<N> distribution values.  The B<type>, B<prec>ision,
+degrees-of-freedom, and desired number of data-points are optional.  The
+defaults are:
 
-  type: u (normal)
-  precision: 2
+  type:               u (normal)
+  precision:          2
   degrees-of-freedom: 2
-  N: 10
+  N:                  10
 
 This routine uses L<Statistics::Distributions>.
 
@@ -429,7 +430,7 @@ sub distributor {
 
   $results = shuffler($n, @items)
 
-Return a shuffled list of B<$n> items.  The items and number of data-points
+Return a shuffled list of B<$n> items.  The B<items> and number of data-points
 are optional.  The defaults are:
 
   n: 10
@@ -453,12 +454,12 @@ sub shuffler {
     N      => $n,
   );
 
-Return a list of B<N> strings.  The type, length, and number of data-points are
-optional.  The defaults are:
+Return a list of B<N> strings.  The B<type>, B<length>, and number of
+data-points are optional.  The defaults are:
 
-  type: default
+  type:   default
   length: 8
-  N: 10
+  N:      10
 
 * This function is nearly identical to the L<Data::SimplePassword>
 C<rndpassword> program, but allows you to generate a finite number of results.
@@ -530,11 +531,11 @@ sub string_ranger {
   $results = image_ranger(size => $size, N => $n)
 
 Return a list of B<N> 1x1 pixel images of varying byte sizes (not image
-dimension).  The byte size and number of data-points are both optional.
+dimension).  The byte B<size> and number of data-points are both optional.
 
 The defaults are:
 
-  N: 10
+  N:    10
   size: 8
 
 This routine uses L<Image::Dot>.
