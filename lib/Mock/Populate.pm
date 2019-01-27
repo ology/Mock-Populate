@@ -30,7 +30,7 @@ use Time::Local;
   my $n      = 5;
   my $offset = 11;
   my $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
-  my $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1, N => $n);
+  my $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1);
   my $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
   my $modify = date_modifier($offset, @$create);
   my $times  = time_ranger(stamp => 1, start => '01:02:03', end =>'23:59:59', N => $n);
@@ -210,29 +210,26 @@ sub _now { # Return hour, minute, second.
     end    => $end,
     prec   => $prec,
     random => $random,
-    N      => $n
   );
 
 Return a list of B<N> random numbers within a range.  The B<start>, B<end>,
-B<prec>ision, whether we want B<random> or sequential numbers, and the desired
-number of data-points are all optional.  The defaults are:
+B<prec>ision, and whether we want B<random> or sequential numbers are all
+optional.  The defaults are:
 
-  start:     0
-  end:       9
+  start:     1
+  end:       10
   precision: 2
-  random:    1
-  N:         10
+  random:    1 (boolean)
 
 =cut
 
 sub number_ranger {
     my %args = @_;
     # Set defaults.
-    $args{start}  ||= 0;
+    $args{start}  //= 1;
     $args{end}    ||= NDATA;
     $args{prec}   ||= PREC;
-    $args{random} ||= 1;
-    $args{N}      ||= NDATA;
+    $args{random} //= 1;
 
     # Bucket for our result list.
     my @results;
@@ -240,7 +237,7 @@ sub number_ranger {
     # Do we want random numbers?
     if ($args{random}) {
         # Roll!
-        for(1 .. $args{N}) {
+        for($args{start} .. $args{end}) {
             # Get our random candidate.
             my $x = rand($args{end});
             # Make sure it is above the start value.
