@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.1003';
+our $VERSION = '0.1004';
 
 use strict;
 use warnings;
