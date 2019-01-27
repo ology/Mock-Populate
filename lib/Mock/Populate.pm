@@ -29,8 +29,8 @@ use Time::Local;
   # * Call each function below with Mock::Populate::foo(...
   my $n      = 5;
   my $offset = 11;
-  my $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
-  my $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1, N => $n);
+  my $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0);
+  my $money  = number_ranger(start => 1000, end => 5000, prec => 2, N => $n);
   my $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
   my $modify = date_modifier($offset, @$create);
   my $times  = time_ranger(stamp => 1, start => '01:02:03', end =>'23:59:59', N => $n);
