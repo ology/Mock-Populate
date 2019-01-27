@@ -14,7 +14,7 @@ like $d->[0], qr/^\d{4}-\d{2}-\d{2}$/, 'date_modifier';
 my $t = Mock::Populate::time_ranger();
 is @$t, 10, 'time_ranger';
 like $t->[0], qr/^\d{2}:\d{2}:\d{2}$/, 'time_ranger';
-my $x = Mock::Populate::number_ranger(start => 1);
+my $x = Mock::Populate::number_ranger();
 is @$x, 10, 'number_ranger';
 like $x->[0], qr/^\d\.\d+$/, 'number_ranger';
 $x = Mock::Populate::name_ranger();
