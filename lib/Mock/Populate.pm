@@ -244,12 +244,16 @@ sub number_ranger {
             while ($x < $args{start}) {
                 $x = rand($args{end});
             }
+            $x = sprintf '%.*f', $args{prec}, $x;
             push @results, $x;
         }
     }
     else {
-        # Use a simple sequence of integers.
+        # Use a contiguous sequence.
         @results = ($args{start} .. $args{end});
+        for ( @results ) {
+            $_ = sprintf '%.*f', $args{prec}, $_;
+        }
     }
 
     return \@results;
