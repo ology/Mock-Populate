@@ -138,15 +138,16 @@ sub date_modifier {
     N     => $n,
   );
 
-Return a list of B<N> random times within a range.  The start and end times, and
-desired number of data-points are all optional.  The defaults are:
+Return a list of B<N> random times within a range.  The stamp, start and end
+times, and desired number of data-points are all optional.  The defaults are:
 
   stamp: 1 (boolean)
   start: 00-00-00
   end: now (computed if not given)
   N: 10
 
-The times must be given as C<HH-MM-SS> strings.
+The times must be given as C<HH-MM-SS> strings.  The B<stamp> argument
+determines if a time-stamp or the number of seconds should be returned.
 
 =cut
 
@@ -271,12 +272,15 @@ desired number of data-points are all optional.  The defaults are:
   country: us
   N: 10
 
+This routine uses L<Mock::Person>.  Please see that module for the country
+identifiers to use.
+
 =cut
 
 sub name_ranger {
     my %args = @_;
     # Set defaults.
-    $args{gender}  ||= 0;
+    $args{gender}  ||= 'b';
     $args{names}   ||= 2;
     $args{country} ||= 'us';
     $args{N}       ||= NDATA;
@@ -318,7 +322,8 @@ sub name_ranger {
   $results = email_modifier(@people)
   # first.last@example.{com,net,org,edu}
 
-Return a list of email addresses based on a list of given names.
+Return a list of email addresses based on a list of given names.  Any names with
+unicode are run through L<Text::Unidecode>.
 
 =cut
 
@@ -365,6 +370,8 @@ The defaults are:
   precision: 2
   degrees-of-freedom: 2
   N: 10
+
+This routine uses L<Statistics::Distributions>.
 
 =head3 Types
 
@@ -527,6 +534,8 @@ The defaults are:
 
   N: 10
   size: 8
+
+This routine uses L<Image::Dot>.
 
 =cut
 
