@@ -210,6 +210,7 @@ sub _now { # Return hour, minute, second.
     end    => $end,
     prec   => $prec,
     random => $random,
+    N      => $n,
   );
 
 Return a list of numbers within the range defined by B<start> and B<end>.  The
