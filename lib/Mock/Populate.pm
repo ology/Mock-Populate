@@ -27,18 +27,20 @@ use Time::Local;
 
   use Mock::Populate;
   # * Call each function below with Mock::Populate::foo(...
-  $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
-  $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1, N => $n);
-  $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
-  $modify = date_modifier($offset, @$create);
-  $times  = time_ranger(stamp => 1, start => '01:02:03' end =>'23:59:59', N => $n);
-  $people = name_ranger(gender => 'b', names => 2, country => 'us', N => $n);
-  $email  = email_ranger(@$people);
-  $shuff  = shuffler($n, qw(foo bar baz goo ber buz));
-  $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
-  $string = string_ranger(length => 32, type => 'base64', N => $n);
-  $imgs   = image_ranger(size => 10, N => $n);  # *size is density, not pixel dimension
-  $coll   = collate($ids, $people, $email, $create, $times, $modify, $times);
+  my $n      = 5;
+  my $offset = 11;
+  my $ids    = number_ranger(start => 1, end => 1001, prec => 0, random => 0, N => $n);
+  my $money  = number_ranger(start => 1000, end => 5000, prec => 2, random => 1, N => $n);
+  my $create = date_ranger(start => '1900-01-01', end => '2020-12-31', N => $n);
+  my $modify = date_modifier($offset, @$create);
+  my $times  = time_ranger(stamp => 1, start => '01:02:03', end =>'23:59:59', N => $n);
+  my $people = name_ranger(gender => 'b', names => 2, country => 'us', N => $n);
+  my $email  = email_ranger(@$people);
+  my $shuff  = shuffler($n, qw(foo bar baz goo ber buz));
+  my $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
+  my $string = string_ranger(length => 32, type => 'base64', N => $n);
+  my $imgs   = image_ranger(size => 10, N => $n);  # *size is density, not pixel dimension
+  my $coll   = collate($ids, $people, $email, $create, $times, $modify, $times);
 
 =head1 DESCRIPTION
 
@@ -103,12 +105,12 @@ sub date_ranger {
 
   $modify = date_modifier($offset, @$dates);
 
-Return a new list of random future dates, based on the offset.
+Return a new list of random dates, based on the offset.
 
 =cut
 
 sub date_modifier {
-    # Get the number of days in the future and the date list.
+    # Get the number of days in the and the date list.
     my ($offset, @dates) = @_;
 
     # Bucket for our result list.
@@ -118,7 +120,7 @@ sub date_modifier {
         # Cast the current date string as an object.
         my $current = date($date);
 
-        # Get a random number of days in the future.
+        # Get a random number of days.
         my $m = int(rand $offset) + 1;
 
         # Save the stringified date plus the offest.
