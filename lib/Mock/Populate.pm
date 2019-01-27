@@ -213,13 +213,14 @@ sub _now { # Return hour, minute, second.
   );
 
 Return a list of numbers within the range defined by B<start> and B<end>.  The
-B<start>, B<end>, B<prec>ision, and whether we want B<random> or sequential
+B<start>, B<end>, B<prec>ision, B<N>, and whether we want B<random> or sequential
 numbers are all optional.  The defaults are:
 
   start:     1
   end:       10
   precision: 2
   random:    1 (boolean)
+  N:         10
 
 =cut
 
@@ -230,6 +231,7 @@ sub number_ranger {
     $args{end}    //= NDATA;
     $args{prec}   //= PREC;
     $args{random} //= 1;
+    $args{N}      ||= NDATA;
 
     # Bucket for our result list.
     my @results;
@@ -237,7 +239,7 @@ sub number_ranger {
     # Do we want random numbers?
     if ($args{random}) {
         # Roll!
-        for($args{start} .. $args{end}) {
+        for(1 .. $args{N}) {
             # Get our random candidate.
             my $x = rand($args{end});
             # Make sure it is above the start value.
