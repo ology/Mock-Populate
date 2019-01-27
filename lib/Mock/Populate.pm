@@ -240,7 +240,7 @@ sub number_ranger {
         for($args{start} .. $args{end}) {
             # Get our random candidate.
             my $x = rand($args{end});
-            # Make sure it is above the start value and less than end.
+            # Make sure it is above the start value.
             while ($x < $args{start}) {
                 $x = rand($args{end});
             }
