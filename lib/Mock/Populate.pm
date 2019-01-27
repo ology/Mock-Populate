@@ -440,7 +440,7 @@ are optional.  The defaults are:
 
 sub shuffler {
     # Get the desired number of data-points.
-    my $n = defined $_[0] ? shift : 9;
+    my $n = defined $_[0] ? shift : NDATA;
     # Get the items to shuffle.
     my @items = @_ ? @_ : ('a' .. 'j');
     return [ shuffle(@items) ];
