@@ -344,10 +344,11 @@ sub email_modifier {
         # Break up the name.
         my @name = split / /, $p;
 
-        # Turn any unicode characters into something ascii.
         for ( @name ) {
+            # Turn any unicode characters into something ascii.
             $_ = unidecode($_);
-            s/\W//g;  # Remove non alpha_nums
+            # Remove non-alpha_nums
+            s/\W//g;
         }
 
         # Add an email address for the person.
