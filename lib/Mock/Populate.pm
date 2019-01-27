@@ -241,7 +241,7 @@ sub number_ranger {
             # Get our random candidate.
             my $x = rand($args{end});
             # Make sure it is above the start value and less than end.
-            while ($x < $args{start} || $x > $args{end}) {
+            while ($x < $args{start}) {
                 $x = rand($args{end});
             }
             $x = sprintf '%.*f', $args{prec}, $x;
