@@ -40,7 +40,7 @@ use Time::Local;
   my $stats  = distributor(type => 'u', prec => 4, dof => 2, N => $n);
   my $string = string_ranger(length => 32, type => 'base64', N => $n);
   my $imgs   = image_ranger(size => 10, N => $n);  # *size is density, not pixel dimension
-  my $coll   = collate($ids, $people, $email, $create, $times, $modify, $times);
+  my $coll   = collate($ids, $people, $email, $create, $times);
 
 =head1 DESCRIPTION
 
