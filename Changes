@@ -1,6 +1,9 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
+    - Remove non-alpha_num chars from names in email_modifier().
+
+0.1402 2019-01-27 13:43:15
     - Fixed the date_ranger() start default.
     - Improved documentation slightly.
 
