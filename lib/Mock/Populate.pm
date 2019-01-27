@@ -456,9 +456,6 @@ data-points are optional.  The defaults are:
   length: 8
   N:      10
 
-* This function is nearly identical to the L<Data::SimplePassword>
-C<rndpassword> program, but allows you to generate a finite number of results.
-
 =head3 Types
 
   Types     Output sample     Character set
