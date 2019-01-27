@@ -227,8 +227,8 @@ sub number_ranger {
     my %args = @_;
     # Set defaults.
     $args{start}  //= 1;
-    $args{end}    ||= NDATA;
-    $args{prec}   ||= PREC;
+    $args{end}    //= NDATA;
+    $args{prec}   //= PREC;
     $args{random} //= 1;
 
     # Bucket for our result list.
@@ -388,8 +388,8 @@ sub distributor {
     my %args = @_;
     # Set defaults.
     $args{type} ||= 'u';
-    $args{prec} ||= PREC;
-    $args{dof}  ||= DOF;
+    $args{prec} //= PREC;
+    $args{dof}  //= DOF;
     $args{N}    ||= NDATA;
 
     # Separate numerator/denominator for F degs-of-freedm.
