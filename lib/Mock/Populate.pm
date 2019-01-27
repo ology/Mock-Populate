@@ -430,8 +430,7 @@ sub distributor {
 
   $results = shuffler(@items)
 
-Return a shuffled list of B<items>.  The items and number of data-points are
-optional.  The defaults are:
+Return a shuffled list of B<items>.  The items are optional.  The defaults are:
 
   items: a b c d e f g h i j
 
