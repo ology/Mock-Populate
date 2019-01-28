@@ -81,15 +81,12 @@ sub date_ranger {
     my $date2 = date($args{end});
     my $range = Date::Range->new($date1, $date2);
 
-    # Declare the number of days in the range.
-    my $offset = 0;
-
     # Bucket for our result list.
     my @results;
 
     for(1 .. $args{N}) {
         # Get a random number of days in the range.
-        $offset = int(rand $range->length);
+        my $offset = int(rand $range->length);
 
         # Save the stringified start date plus the offest.
         my $date = $date1 + $offset;
