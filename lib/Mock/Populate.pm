@@ -327,11 +327,10 @@ names with unicode are run through L<Text::Unidecode>.
 sub email_modifier {
     my @people = @_;
 
+    my @tld = qw( com net org edu );
+
     # Bucket for our results.
     my @results = ();
-
-    # Generate email addresses if requested.
-    my @tld = qw( com net org edu );
 
     for my $p (@people) {
         # Break up the name.
