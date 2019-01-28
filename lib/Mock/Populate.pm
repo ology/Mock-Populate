@@ -149,7 +149,7 @@ are:
   end:   now (computed if not given)
   N:     10
 
-The times must be given as C<HH-MM-SS> strings.  The B<stamp> argument
+The times must be given as C<HH:MM:SS> strings.  The B<stamp> argument
 determines if a time-stamp or the number of seconds should be returned.
 
 =cut
