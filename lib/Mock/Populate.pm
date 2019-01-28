@@ -612,24 +612,5 @@ L<Time::Local>
 
 L<Data::Random> does nearly the exact same thing. Whoops!
 
-=head1 TO DO
-
-Implement dirty-data randomizing.
-
-  unexpected formats: iso-8859-1, utf-16, windows codepage,
-  BOM (byte order marker),
-  broken unicode,
-  garbled binary,
-  \r and \n variations,
-  commas or $ in currencies ("format fuckups"),
-  bad JSON,
-  broken XML,
-  bad ' and " in CSV,
-  statistical outliers,
-  time-series drops and spikes,
-  duplicate data,
-  missing data,
-  truncated data,
-
 =cut
 
