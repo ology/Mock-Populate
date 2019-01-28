@@ -1,7 +1,7 @@
 Revision history for Mock::Populate
 
 {{$NEXT}}
-    - Improved documentation a bit.
+    - Improved documentation once again.
 
 0.1600 2019-01-27 15:02:31
     - Readded the N argument back to number_ranger().
