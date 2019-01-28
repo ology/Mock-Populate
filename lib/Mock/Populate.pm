@@ -403,7 +403,7 @@ sub distributor {
     $args{dof}  //= DOF;
     $args{N}    ||= NDATA;
 
-    # Separate numerator/denominator for F degs-of-freedm.
+    # Separate numerator/denominator for F degs-of-freedom.
     my $e = 1;
     ($args{dof}, $e) = split(/\//, $args{dof}) if $args{type} eq 'f';
 
