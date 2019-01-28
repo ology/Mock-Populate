@@ -600,8 +600,6 @@ L<Date::Simple>
 
 L<Image::Dot>
 
-L<List::Util>
-
 L<Mock::Person>
 
 L<Statistics::Distributions>
