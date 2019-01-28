@@ -145,7 +145,7 @@ B<end> times, and desired number of data-points are all optional.  The defaults
 are:
 
   stamp: 1 (boolean)
-  start: 00-00-00
+  start: 00:00:00
   end:   now (computed if not given)
   N:     10
 
