@@ -291,8 +291,7 @@ sub name_ranger {
     for my $i (1 .. $args{N}) {
         # Get our random person.
         my $p = '';
-        # If gender is 'both' alternate male-female.
-        # Or if gender is not 'male' then ...female!
+        # If gender is 'both' alternate male/female.
         if (($args{gender} eq 'b' && $i % 2) || $args{gender} eq 'f') {
             $p = Mock::Person::name(sex => 'female', country => $args{country});
         }
@@ -301,7 +300,6 @@ sub name_ranger {
         }
         # Only use the requested number of names.
         my @names = split / /, $p;
-        my $name = '';
         if ($args{names} == 1) {
             push @results, $names[-1];
         }
