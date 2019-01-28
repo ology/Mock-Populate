@@ -168,16 +168,13 @@ sub time_ranger {
     my $range = $end_time - $start_time;
     #warn "R: $end_time (@end) - $start_time (@start) = $range\n";
 
-    # Declare the number of seconds.
-    my $offset = 0;
-
     # Bucket for our result list.
     my @results;
 
     # Generate a time, N times.
     for(1 .. $args{N}) {
         # Get a random number of seconds in the range.
-        $offset = int(rand $range);
+        my $offset = int(rand $range);
 
         # Print the start time plus the offest seconds.
         if ($args{stamp}) {
