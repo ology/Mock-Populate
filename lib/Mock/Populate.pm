@@ -2,7 +2,7 @@ package Mock::Populate;
 
 # ABSTRACT: Mock data creation
 
-our $VERSION = '0.1700';
+our $VERSION = '0.1701';
 
 use strict;
 use warnings;
@@ -180,12 +180,13 @@ sub time_ranger {
         if ($args{stamp}) {
             # In HH:MM::SS format.
             my $time = scalar localtime($start_time + $offset);
-            push @results, (split / /, $time)[3];
+            push @results, (split /\s+/, $time)[3];
         }
         else {
             # As a number of seconds from the "epoc."
             push @results, $start_time + $offset;
         }
+#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper\@results);
     }
 
     return \@results;
