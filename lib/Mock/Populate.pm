@@ -12,15 +12,15 @@ use constant PREC  => 2;
 use constant DOF   => 2;
 use constant SIZE  => 8;
 
-use Data::SimplePassword;
-use Date::Range;
+use Data::SimplePassword ();
+use Date::Range ();
 use Date::Simple qw(date today);
-use Image::Dot;
-use Mock::Person;
-use Statistics::Distributions;
-use Text::Password::Pronounceable;
-use Text::Unidecode;
-use Time::Local;
+use Image::Dot qw(dot_PNG_RGB);
+use Mock::Person ();
+use Statistics::Distributions ();
+use Text::Password::Pronounceable ();
+use Text::Unidecode qw(unidecode);
+use Time::Local qw(timegm);
 
 =head1 SYNOPSIS
 
